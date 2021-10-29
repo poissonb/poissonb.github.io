@@ -1,0 +1,201 @@
+/*
+Header
+*/
+
+.header{
+    text-align: center;
+    height: 50px;
+    background-color: 	#233143;
+    background-size: contain;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    border-bottom-style: outset;
+    border-bottom-color: #A31621;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+}
+
+
+.header .header-menu a {
+    color: snow;
+    margin-right: 15px;
+    font-family: 'Merriweather', serif;
+
+}
+
+
+.header .header-menu a:hover {
+    color: #A31621;
+}
+
+/*
+body
+*/
+body{
+    margin: 0;
+}
+/* 
+Banner 
+*/
+
+.banner{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #2e4057;
+    margin: 0px;
+    margin-top: 50px;
+}
+
+.banner .banner-content{
+    margin-left: 15px;
+}
+
+.banner .banner-image{
+    margin-right: 15px;
+}
+
+.banner .banner-image img{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    max-width: 150px;
+    height: auto;
+    border-color: #eef2f6;
+    border-width: 5px;
+    border-style: solid dotted;
+    border-radius: 75px;
+}
+
+.banner .banner-content h1{
+    font-family: 'Merriweather', serif;
+    color: #eef2f6;
+}
+
+.banner .banner-content h2, .banner .banner-content h3{
+    font-family: 'Merriweather', serif;
+    color : #eef2f6;
+}
+
+/*
+Contenu
+*/
+.content{
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column;
+    justify-content: center;
+    margin: auto;
+    max-width: 840px;
+}
+
+
+.content .content-title h1{
+    font-family: 'Merriweather', serif;
+    color: #2e4057;
+    border-bottom-style: solid;
+}
+
+
+.content .content-content{
+    font-family: 'Raleway', sans-serif;
+    color: 	#2e4057;
+}
+
+/*
+Awesome Font
+*/
+
+.fas, .fa{
+    color: #A31621;
+    
+}
+
+/*
+Section à propos
+*/
+
+
+
+
+/*
+Experiences Pro
+*/
+
+i.experiences-lieux{
+    color: 	#2e4057;
+}
+
+.experiences-list{
+    display: flex;
+}
+
+
+ul.content-content{
+    list-style-image: none;
+    list-style-position: unset;
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.experiences-img{
+    display: flex;
+    margin: auto;
+}
+
+.experiences-logo{
+    max-width: 64px;
+    max-height: 64px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.experiences-text{
+    padding-left: 6px;
+    margin: 6px;
+    flex-grow: 1;
+}
+
+
+
+.experiences-lieux, .experiences-dates, .experiences-title{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.experiences-content{
+    padding-top: 10px;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+/*
+Formations
+*/
+
+.formations-annees{
+    float: left;
+    padding-right: 0.4em;
+    margin-right: 0.4em;
+    border-right-style: solid;
+    border-right-color: #A31621;
+
+}
+
+.formations-diplome, .formations-lieux{
+    margin: 0.25em;
+    border: 0;
+}
+
+.formations-lieux{
+    margin-bottom: 1.5em;
+    font-style: italic;
+
+}
