@@ -22,8 +22,8 @@ Header
 .header .header-menu a {
     color: snow;
     margin-right: 15px;
-    font-family: 'Merriweather', serif;
-
+    font-family: 'Helvetica', sans-serif;
+    text-decoration: none;
 }
 
 
@@ -64,18 +64,18 @@ Banner
     max-width: 150px;
     height: auto;
     border-color: #eef2f6;
-    border-width: 5px;
+    border-width: 3px;
     border-style: solid dotted;
     border-radius: 75px;
 }
 
 .banner .banner-content h1{
-    font-family: 'Merriweather', serif;
+    font-family: 'Helvetica', sans-serif;
     color: #eef2f6;
 }
 
 .banner .banner-content h2, .banner .banner-content h3{
-    font-family: 'Merriweather', serif;
+    font-family: 'Helvetica', sans-serif;
     color : #eef2f6;
 }
 
@@ -93,7 +93,7 @@ Contenu
 
 
 .content .content-title h1{
-    font-family: 'Merriweather', serif;
+    font-family: 'Helvetica', sans-serif;
     color: #2e4057;
     border-bottom-style: solid;
 }
