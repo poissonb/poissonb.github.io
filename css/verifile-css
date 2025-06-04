@@ -1,4 +1,3 @@
-<style>
         /* Styles spécifiques pour le vérificateur PDF */
         .upload-zone {
             border: 2px dashed #2e4057;
@@ -63,4 +62,3 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-    </style>
