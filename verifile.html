@@ -141,22 +141,31 @@
     </main>
 
     <script>
-        // Liste des hashes valides - à maintenir selon vos documents
-        const VALID_DOCUMENTS = {
-            // Exemples - remplacez par vos vrais hashes
-            'exemple1.pdf': {
-                hash: 'a1b2c3d4e5f6789abcdef0123456789abcdef0123456789abcdef0123456789a',
-                description: 'Document exemple 1',
-                version: '1.0',
-                issueDate: '2024-01-15'
-            },
-            'exemple2.pdf': {
-                hash: 'b2c3d4e5f6a789bcdef0123456789abcdef0123456789abcdef0123456789ab1',
-                description: 'Document exemple 2',
-                version: '2.1',
-                issueDate: '2024-02-20'
+        // Liste des hashes valides - chargée depuis un fichier
+        let validHashes = new Set();
+        
+        // Chargement des hashes depuis le fichier
+        async function loadValidHashes() {
+            try {
+                const response = await fetch('hashes.txt');
+                if (!response.ok) {
+                    throw new Error('Impossible de charger le fichier des hashes');
+                }
+                const text = await response.text();
+                const hashes = text.split('\n')
+                    .map(line => line.trim())
+                    .filter(line => line && !line.startsWith('#')); // Ignore les lignes vides et commentaires
+                
+                validHashes = new Set(hashes);
+                console.log(`${validHashes.size} hashes valides chargés`);
+            } catch (error) {
+                console.error('Erreur lors du chargement des hashes:', error);
+                displayError('Erreur lors du chargement de la base de données des documents valides.');
             }
-        };
+        }
+        
+        // Initialisation au chargement de la page
+        document.addEventListener('DOMContentLoaded', loadValidHashes);
 
         // Fonction principale de vérification
         async function verifyFileHash(file) {
@@ -166,21 +175,14 @@
                 const hashArray = Array.from(new Uint8Array(hashBuffer));
                 const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
                 
-                // Recherche dans la liste des documents valides
-                let matchedDoc = null;
-                for (const [filename, docInfo] of Object.entries(VALID_DOCUMENTS)) {
-                    if (docInfo.hash === hashHex) {
-                        matchedDoc = { filename, ...docInfo };
-                        break;
-                    }
-                }
+                // Vérification dans la liste des hashes valides
+                const isValid = validHashes.has(hashHex);
                 
                 return {
                     hash: hashHex,
-                    isValid: matchedDoc !== null,
+                    isValid: isValid,
                     fileName: file.name,
-                    fileSize: file.size,
-                    matchedDocument: matchedDoc
+                    fileSize: file.size
                 };
             } catch (error) {
                 throw new Error('Erreur lors du calcul de l\'empreinte : ' + error.message);
@@ -202,16 +204,9 @@
                 resultBox.className = 'result-box result-valid';
                 resultTitle.innerHTML = '<i class="fas fa-check-circle"></i> Document Authentique';
                 resultMessage.innerHTML = `✅ Ce document est authentique et n'a pas été modifié.<br>
-                    <strong>Document identifié :</strong> ${result.matchedDocument.description}`;
+                    Son empreinte correspond à un document valide de notre base de données.`;
                 
-                let additionalInfo = `<strong>Fichier :</strong> ${result.fileName} (${(result.fileSize / 1024).toFixed(1)} KB)`;
-                if (result.matchedDocument.version) {
-                    additionalInfo += `<br><strong>Version :</strong> ${result.matchedDocument.version}`;
-                }
-                if (result.matchedDocument.issueDate) {
-                    additionalInfo += `<br><strong>Date d'émission :</strong> ${result.matchedDocument.issueDate}`;
-                }
-                fileInfo.innerHTML = additionalInfo;
+                fileInfo.innerHTML = `<strong>Fichier :</strong> ${result.fileName} (${(result.fileSize / 1024).toFixed(1)} KB)`;
             } else {
                 resultBox.className = 'result-box result-invalid';
                 resultTitle.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Document Non Reconnu';
@@ -264,6 +259,9 @@
 
         // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
+            // Chargement des hashes au démarrage
+            loadValidHashes();
+            
             const uploadZone = document.getElementById('uploadZone');
             const fileInput = document.getElementById('fileInput');
 
