@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vérification signature PDF Adobe avec clé publique PEM</title>
+  <!-- Chargement via jsDelivr (CDN stable avec bon MIME) -->
+<script src=" https://cdn.jsdelivr.net/npm/asn1js@3.0.6/build/index.min.js"></script>
+<script src=" https://cdn.jsdelivr.net/npm/pkijs@3.2.5/build/index.min.js"></script>
+
+</head>
+<body>
+  <h2>Vérification signature PDF Adobe avec clé publique PEM</h2>
+  <input type="file" id="fileInput" accept=".pdf" />
+  <pre id="output"></pre>
+
+  <script>
+    const output = document.getElementById("output");
+
+    const asn1js = window.asn1js;
+    const pkijs = window.pkijs;
+
+    const publicKeyPEM = `-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAi+TKyKZDMZ994NfNVV8O
+PkBHUGyldiUJPP2qXWFCQk6KyN1BIDP8+Y9fvRMMPyYHe3vcawgzPiySzQqkiPV0
+C+UwrSxYtpWAk6+H7h9fBeI/Mq5lXAPv7btNWZ2L1SfJs2yubXCLXRQMgHkA8CM8
+/n08NBb3zYG3drXXSDnrEGS3KFEUJZu0oSgh1RONP2gU921lCK0FHEba74igqwvZ
+sgQhC8ooauDNhislyMfF9/k0WsfeL/gI+Ilz6PDxfM9iUbTcHbUmRAyeYavCtoUq
+pHZ/SzyRuQHmcHeZCZ49ca0vD0TIj+ki3JoStZfXja+sIMkpHbHH01jJ1V9c+REH
+9QIDAQAB
+-----END PUBLIC KEY-----`;
+
+    function pemToArrayBuffer(pem) {
+      const b64 = pem.replace(/-----.*?-----/g, "").replace(/\s+/g, "");
+      const binary = atob(b64);
+      const buffer = new ArrayBuffer(binary.length);
+      const view = new Uint8Array(buffer);
+      for (let i = 0; i < binary.length; i++) {
+        view[i] = binary.charCodeAt(i);
+      }
+      return buffer;
+    }
+
+    async function importPublicKey(pem) {
+      const spki = pemToArrayBuffer(pem);
+      return crypto.subtle.importKey(
+        "spki",
+        spki,
+        {
+          name: "RSASSA-PKCS1-v1_5",
+          hash: "SHA-256"
+        },
+        true,
+        ["verify"]
+      );
+    }
+
+    async function verifyPdfSignature(arrayBuffer) {
+      const bytes = new Uint8Array(arrayBuffer);
+      const text = new TextDecoder("ascii").decode(bytes);
+
+      const byteRangeMatch = text.match(/\/ByteRange\s*\[\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s*\]/);
+      if (!byteRangeMatch) throw new Error("ByteRange introuvable");
+      const byteRange = byteRangeMatch.slice(1, 5).map(Number);
+
+      const signedData = new Uint8Array(byteRange[1] + byteRange[3]);
+      signedData.set(bytes.slice(byteRange[0], byteRange[0] + byteRange[1]), 0);
+      signedData.set(bytes.slice(byteRange[2], byteRange[2] + byteRange[3]), byteRange[1]);
+
+      const contentsMatch = text.match(/\/Contents\s*<([0-9A-Fa-f\s\r\n]+)>/);
+      if (!contentsMatch) throw new Error("Contents introuvable");
+      const rawHex = contentsMatch[1].replace(/\s+/g, "");
+      const signatureBytes = new Uint8Array(rawHex.length / 2);
+      for (let i = 0; i < rawHex.length; i += 2) {
+        signatureBytes[i / 2] = parseInt(rawHex.substr(i, 2), 16);
+      }
+
+      const asn1 = asn1js.fromBER(signatureBytes.buffer);
+      if (asn1.offset === -1) throw new Error("Erreur parsing ASN.1 signature");
+
+      const cmsContentInfo = new pkijs.ContentInfo({ schema: asn1.result });
+      const signedDataCms = new pkijs.SignedData({ schema: cmsContentInfo.content });
+
+      const publicKey = await importPublicKey(publicKeyPEM);
+
+      const verification = await signedDataCms.verify({
+        signer: 0,
+        data: signedData.buffer,
+        publicKey,
+      });
+
+      return verification;
+    }
+
+    document.getElementById("fileInput").addEventListener("change", async (e) => {
+      output.textContent = "";
+      try {
+        const file = e.target.files[0];
+        if (!file) {
+          output.textContent = "Aucun fichier sélectionné.";
+          return;
+        }
+        const arrayBuffer = await file.arrayBuffer();
+        const valid = await verifyPdfSignature(arrayBuffer);
+        output.textContent = valid ? "✅ Signature valide !" : "❌ Signature invalide !";
+      } catch (err) {
+        output.textContent = "Erreur : " + err.message;
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
