@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Vérification signature PDF Adobe avec clé publique PEM</title>
-  <!-- Chargement via jsDelivr (CDN stable avec bon MIME) -->
-<script src=" https://cdn.jsdelivr.net/npm/asn1js@3.0.6/build/index.min.js"></script>
-<script src=" https://cdn.jsdelivr.net/npm/pkijs@3.2.5/build/index.min.js"></script>
-
+<meta charset="UTF-8" />
+<title>Extraction + Vérification signature PDF PKCS#7</title>
+<script src="https://cdn.jsdelivr.net/npm/pkijs@3.0.15/build/pkijs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/asn1js@2.0.32/build/asn1js.min.js"></script>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
 </head>
 <body>
-  <h2>Vérification signature PDF Adobe avec clé publique PEM</h2>
-  <input type="file" id="fileInput" accept=".pdf" />
-  <pre id="output"></pre>
+<h1>Extraction + Vérification signature PDF PKCS#7</h1>
 
-  <script>
-    const output = document.getElementById("output");
+<input type="file" id="pdfFile" accept="application/pdf" />
+<br/><br/>
 
-    const asn1js = window.asn1js;
-    const pkijs = window.pkijs;
+<textarea id="signatureBase64" rows="6" cols="80" placeholder="Signature extraite en base64 (PKCS#7)"></textarea>
+<br/><br/>
 
-    const publicKeyPEM = `-----BEGIN PUBLIC KEY-----
+<button id="verifyBtn">Vérifier la signature</button>
+
+<p id="result"></p>
+
+<script>
+  const { PDFDocument } = PDFLib;
+  const { fromBER } = asn1js;
+  const { ContentInfo, SignedData } = pkijs;
+
+  // Ta clé publique RSA en PEM (PEM = Base64 encodé entre BEGIN/END)
+  const publicKeyPEM = `-----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAi+TKyKZDMZ994NfNVV8O
 PkBHUGyldiUJPP2qXWFCQk6KyN1BIDP8+Y9fvRMMPyYHe3vcawgzPiySzQqkiPV0
 C+UwrSxYtpWAk6+H7h9fBeI/Mq5lXAPv7btNWZ2L1SfJs2yubXCLXRQMgHkA8CM8
@@ -29,84 +36,112 @@ pHZ/SzyRuQHmcHeZCZ49ca0vD0TIj+ki3JoStZfXja+sIMkpHbHH01jJ1V9c+REH
 9QIDAQAB
 -----END PUBLIC KEY-----`;
 
-    function pemToArrayBuffer(pem) {
-      const b64 = pem.replace(/-----.*?-----/g, "").replace(/\s+/g, "");
-      const binary = atob(b64);
-      const buffer = new ArrayBuffer(binary.length);
-      const view = new Uint8Array(buffer);
-      for (let i = 0; i < binary.length; i++) {
-        view[i] = binary.charCodeAt(i);
-      }
-      return buffer;
+  // Convertit PEM en ArrayBuffer pour importKey
+  function pemToArrayBuffer(pem) {
+    const b64 = pem.replace(/-----[^-]+-----/g, '').replace(/\s+/g, '');
+    const binary = atob(b64);
+    const buffer = new ArrayBuffer(binary.length);
+    const view = new Uint8Array(buffer);
+    for (let i = 0; i < binary.length; i++) {
+      view[i] = binary.charCodeAt(i);
     }
+    return buffer;
+  }
 
-    async function importPublicKey(pem) {
-      const spki = pemToArrayBuffer(pem);
-      return crypto.subtle.importKey(
-        "spki",
-        spki,
-        {
-          name: "RSASSA-PKCS1-v1_5",
-          hash: "SHA-256"
-        },
-        true,
-        ["verify"]
-      );
-    }
+  // Importer la clé publique RSA avec SubtleCrypto
+  async function importPublicKey(pem) {
+    const keyData = pemToArrayBuffer(pem);
+    return await crypto.subtle.importKey(
+      'spki',
+      keyData,
+      { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' },
+      false,
+      ['verify']
+    );
+  }
 
-    async function verifyPdfSignature(arrayBuffer) {
-      const bytes = new Uint8Array(arrayBuffer);
-      const text = new TextDecoder("ascii").decode(bytes);
+  // Extraction signature PKCS#7 depuis PDF
+  async function extractSignatureFromPDF(file) {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdfDoc = await PDFDocument.load(arrayBuffer);
+    const form = pdfDoc.getForm();
+    const fields = form.getFields();
 
-      const byteRangeMatch = text.match(/\/ByteRange\s*\[\s*(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s*\]/);
-      if (!byteRangeMatch) throw new Error("ByteRange introuvable");
-      const byteRange = byteRangeMatch.slice(1, 5).map(Number);
-
-      const signedData = new Uint8Array(byteRange[1] + byteRange[3]);
-      signedData.set(bytes.slice(byteRange[0], byteRange[0] + byteRange[1]), 0);
-      signedData.set(bytes.slice(byteRange[2], byteRange[2] + byteRange[3]), byteRange[1]);
-
-      const contentsMatch = text.match(/\/Contents\s*<([0-9A-Fa-f\s\r\n]+)>/);
-      if (!contentsMatch) throw new Error("Contents introuvable");
-      const rawHex = contentsMatch[1].replace(/\s+/g, "");
-      const signatureBytes = new Uint8Array(rawHex.length / 2);
-      for (let i = 0; i < rawHex.length; i += 2) {
-        signatureBytes[i / 2] = parseInt(rawHex.substr(i, 2), 16);
+    for (const field of fields) {
+      if (field.constructor.name === 'PDFSignature') {
+        const dict = field.acroField.dict;
+        const contents = dict.get('Contents');
+        if (!contents) throw new Error("Champ Contents introuvable dans la signature");
+        let signatureBytes;
+        if (contents.constructor.name === 'PDFHexString' || contents.constructor.name === 'PDFString') {
+          signatureBytes = contents.asBytes();
+        } else {
+          throw new Error("Type de contenu Contents non supporté");
+        }
+        return new Uint8Array(signatureBytes);
       }
+    }
+    throw new Error("Aucune signature PDF détectée");
+  }
 
-      const asn1 = asn1js.fromBER(signatureBytes.buffer);
-      if (asn1.offset === -1) throw new Error("Erreur parsing ASN.1 signature");
+  async function verifyPKCS7Signature(pkcs7Bytes, publicKey) {
+    // Parser PKCS#7 (CMS) avec pkijs
+    const asn1 = fromBER(pkcs7Bytes.buffer);
+    if (asn1.offset === -1) throw new Error("Erreur d'analyse ASN.1");
 
-      const cmsContentInfo = new pkijs.ContentInfo({ schema: asn1.result });
-      const signedDataCms = new pkijs.SignedData({ schema: cmsContentInfo.content });
+    const contentInfo = new ContentInfo({ schema: asn1.result });
+    if (contentInfo.contentType !== "1.2.840.113549.1.7.2") // OID SignedData
+      throw new Error("Ce n'est pas un SignedData PKCS#7");
 
-      const publicKey = await importPublicKey(publicKeyPEM);
+    const signedData = new SignedData({ schema: contentInfo.content });
 
-      const verification = await signedDataCms.verify({
-        signer: 0,
-        data: signedData.buffer,
+    // Vérifier la signature de chaque SignerInfo
+    for (const signerInfo of signedData.signerInfos) {
+      const verified = await signerInfo.verify({
+        signerCertificate: null, // Pas de certificat fourni, on utilise la clé publique
         publicKey,
+        checkChain: false,
+        checkSignatureValue: true,
+        extendedMode: true
       });
 
-      return verification;
+      if (!verified) return false;
+    }
+    return true;
+  }
+
+  // Event input fichier + bouton vérification
+
+  let extractedSignatureBytes = null;
+
+  document.getElementById('pdfFile').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      extractedSignatureBytes = await extractSignatureFromPDF(file);
+      const b64 = btoa(String.fromCharCode(...extractedSignatureBytes));
+      document.getElementById('signatureBase64').value = b64;
+      document.getElementById('result').textContent = "Signature extraite avec succès, prête à vérifier.";
+    } catch (err) {
+      document.getElementById('result').textContent = "Erreur extraction : " + err.message;
+    }
+  });
+
+  document.getElementById('verifyBtn').addEventListener('click', async () => {
+    if (!extractedSignatureBytes) {
+      alert("Pas de signature extraite à vérifier");
+      return;
     }
 
-    document.getElementById("fileInput").addEventListener("change", async (e) => {
-      output.textContent = "";
-      try {
-        const file = e.target.files[0];
-        if (!file) {
-          output.textContent = "Aucun fichier sélectionné.";
-          return;
-        }
-        const arrayBuffer = await file.arrayBuffer();
-        const valid = await verifyPdfSignature(arrayBuffer);
-        output.textContent = valid ? "✅ Signature valide !" : "❌ Signature invalide !";
-      } catch (err) {
-        output.textContent = "Erreur : " + err.message;
-        console.error(err);
-      }
-    });
-  </script>
+    try {
+      const publicKey = await importPublicKey(publicKeyPEM);
+      const isValid = await verifyPKCS7Signature(extractedSignatureBytes, publicKey);
+      document.getElementById('result').textContent = isValid ? "Signature valide ✔️" : "Signature invalide ❌";
+    } catch (err) {
+      document.getElementById('result').textContent = "Erreur vérification : " + err.message;
+    }
+  });
+</script>
 </body>
 </html>
