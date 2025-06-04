@@ -7,9 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/verifile-css.css">
-
-    
 </head>
 <body>
     <header class="header">
@@ -86,15 +83,25 @@
             try {
                 const response = await fetch('hashes.txt');
                 if (!response.ok) {
-                    throw new Error('Impossible de charger le fichier des hashes');
+                    throw new Error(`Impossible de charger le fichier des hashes (${response.status})`);
                 }
                 const text = await response.text();
+                console.log('Contenu brut du fichier hashes.txt:', text);
+                
                 const hashes = text.split('\n')
-                    .map(line => line.trim())
+                    .map(line => line.trim().toLowerCase()) // Convertir en minuscules
                     .filter(line => line && !line.startsWith('#')); // Ignore les lignes vides et commentaires
                 
                 validHashes = new Set(hashes);
-                console.log(`${validHashes.size} hashes valides chargés`);
+                console.log(`${validHashes.size} hashes valides chargés:`, Array.from(validHashes));
+                
+                // Vérification du format des hashes
+                hashes.forEach((hash, index) => {
+                    if (hash.length !== 64 || !/^[a-f0-9]+$/.test(hash)) {
+                        console.warn(`Hash ligne ${index + 1} invalide:`, hash);
+                    }
+                });
+                
             } catch (error) {
                 console.error('Erreur lors du chargement des hashes:', error);
                 displayError('Erreur lors du chargement de la base de données des documents valides.');
@@ -110,7 +117,11 @@
                 const arrayBuffer = await file.arrayBuffer();
                 const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
                 const hashArray = Array.from(new Uint8Array(hashBuffer));
-                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('').toLowerCase();
+                
+                console.log('Hash calculé:', hashHex);
+                console.log('Hashes valides:', Array.from(validHashes));
+                console.log('Hash trouvé dans la liste:', validHashes.has(hashHex));
                 
                 // Vérification dans la liste des hashes valides
                 const isValid = validHashes.has(hashHex);
