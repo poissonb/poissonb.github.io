@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vérificateur d'authenticité PDF</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        /* Styles spécifiques pour le vérificateur PDF */
+        .upload-zone {
+            border: 2px dashed #2e4057;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .upload-zone:hover {
+            border-color: #A31621;
+            background-color: #f9f9f9;
+        }
+        .upload-zone.dragover {
+            border-color: #A31621;
+            background-color: #f0f8ff;
+        }
+        .file-input {
+            display: none;
+        }
+        .result-box {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        .result-valid {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .result-invalid {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .hash-display {
+            font-family: monospace;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            word-break: break-all;
+            border: 1px solid #dee2e6;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            color: #2e4057;
+        }
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #A31621;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="header-menu">
+            <a href="#"><i class="fas fa-shield-alt"></i> Vérificateur PDF</a>
+            <a href="#"><i class="fas fa-info-circle"></i> À propos</a>
+        </nav>
+    </header>
+
+    <section class="banner">
+        <div class="banner-image">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDE1MCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxNTAiIGhlaWdodD0iMTUwIiByeD0iNzUiIGZpbGw9IiNlZWYyZjYiLz4KPHN2ZyB4PSI0MCIgeT0iNDAiIHdpZHRoPSI3MCIgaGVpZ2h0PSI3MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjQTMxNjIxIj4KPHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJjdXJyZW50Q29sb3IiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4KPHA+PHBhdGggZD0ibTkgMTIgMiAyIDQtNCIvPgo8cGF0aCBkPSJNMjEgMTJjLjU1MiAwIDEtLjQ0OCAxLTFWNmEyIDIgMCAwIDAtMi0ySDRhMiAyIDAgMCAwLTIgMnY1YzAgLjU1Mi40NDggMSAxIDFzMS0uNDQ4IDEtMXY0YTIgMiAwIDAgMCAyIDJoMTZhMiAyIDAgMCAwIDItMnYtNGMwLS41NTItLjQ0OC0xLTEtMXoiLz4KPC9zdmc+CjwvcGF0aD4KPC9zdmc+Cjwvc3ZnPgo=" alt="Logo Vérificateur">
+        </div>
+        <div class="banner-content">
+            <h1><i class="fas fa-shield-alt"></i> Vérificateur d'Authenticité PDF</h1>
+            <h2>Validez l'intégrité de vos documents</h2>
+            <h3>Vérification par empreinte cryptographique (hash)</h3>
+        </div>
+    </section>
+
+    <main class="content">
+        <div class="content-title">
+            <h1><i class="fas fa-upload"></i> Vérification de Document</h1>
+        </div>
+        
+        <div class="content-content">
+            <p>Glissez-déposez votre fichier PDF ci-dessous ou cliquez pour le sélectionner. Le système calculera son empreinte SHA-256 et vérifiera si elle correspond à un document authentique.</p>
+            
+            <div class="upload-zone" id="uploadZone">
+                <i class="fas fa-cloud-upload-alt" style="font-size: 48px; margin-bottom: 15px;"></i>
+                <p>Glissez-déposez votre fichier PDF ici<br>ou <strong>cliquez pour parcourir</strong></p>
+                <input type="file" id="fileInput" class="file-input" accept=".pdf" />
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Calcul de l'empreinte en cours...</p>
+            </div>
+
+            <div class="result-box" id="resultBox">
+                <h3 id="resultTitle"></h3>
+                <p id="resultMessage"></p>
+                <div class="hash-display">
+                    <strong>Empreinte SHA-256:</strong><br>
+                    <span id="hashValue"></span>
+                </div>
+                <p id="fileInfo"></p>
+            </div>
+        </div>
+
+        <div class="content-title">
+            <h1><i class="fas fa-info-circle"></i> Comment ça fonctionne</h1>
+        </div>
+        
+        <div class="content-content">
+            <p>Ce vérificateur calcule l'empreinte cryptographique (hash SHA-256) de votre fichier PDF et la compare à une liste de documents authentiques. Toute modification du fichier, même minime, entraîne un changement complet de l'empreinte.</p>
+            
+            <h3><i class="fas fa-check-circle"></i> Avantages de cette méthode :</h3>
+            <ul>
+                <li><strong>Sécurité :</strong> Détection de toute altération du document</li>
+                <li><strong>Rapidité :</strong> Vérification instantanée côté client</li>
+                <li><strong>Confidentialité :</strong> Votre fichier ne quitte jamais votre navigateur</li>
+                <li><strong>Fiabilité :</strong> Utilise les standards cryptographiques du navigateur</li>
+            </ul>
+        </div>
+    </main>
+
+    <script>
+        // Liste des hashes valides - à maintenir selon vos documents
+        const VALID_DOCUMENTS = {
+            // Exemples - remplacez par vos vrais hashes
+            'exemple1.pdf': {
+                hash: 'a1b2c3d4e5f6789abcdef0123456789abcdef0123456789abcdef0123456789a',
+                description: 'Document exemple 1',
+                version: '1.0',
+                issueDate: '2024-01-15'
+            },
+            'exemple2.pdf': {
+                hash: 'b2c3d4e5f6a789bcdef0123456789abcdef0123456789abcdef0123456789ab1',
+                description: 'Document exemple 2',
+                version: '2.1',
+                issueDate: '2024-02-20'
+            }
+        };
+
+        // Fonction principale de vérification
+        async function verifyFileHash(file) {
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const hashBuffer = await crypto.subtle.digest('SHA-256', arrayBuffer);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                
+                // Recherche dans la liste des documents valides
+                let matchedDoc = null;
+                for (const [filename, docInfo] of Object.entries(VALID_DOCUMENTS)) {
+                    if (docInfo.hash === hashHex) {
+                        matchedDoc = { filename, ...docInfo };
+                        break;
+                    }
+                }
+                
+                return {
+                    hash: hashHex,
+                    isValid: matchedDoc !== null,
+                    fileName: file.name,
+                    fileSize: file.size,
+                    matchedDocument: matchedDoc
+                };
+            } catch (error) {
+                throw new Error('Erreur lors du calcul de l\'empreinte : ' + error.message);
+            }
+        }
+
+        // Function pour afficher les résultats
+        function displayResult(result) {
+            const resultBox = document.getElementById('resultBox');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultMessage = document.getElementById('resultMessage');
+            const hashValue = document.getElementById('hashValue');
+            const fileInfo = document.getElementById('fileInfo');
+            
+            resultBox.style.display = 'block';
+            hashValue.textContent = result.hash;
+            
+            if (result.isValid) {
+                resultBox.className = 'result-box result-valid';
+                resultTitle.innerHTML = '<i class="fas fa-check-circle"></i> Document Authentique';
+                resultMessage.innerHTML = `✅ Ce document est authentique et n'a pas été modifié.<br>
+                    <strong>Document identifié :</strong> ${result.matchedDocument.description}`;
+                
+                let additionalInfo = `<strong>Fichier :</strong> ${result.fileName} (${(result.fileSize / 1024).toFixed(1)} KB)`;
+                if (result.matchedDocument.version) {
+                    additionalInfo += `<br><strong>Version :</strong> ${result.matchedDocument.version}`;
+                }
+                if (result.matchedDocument.issueDate) {
+                    additionalInfo += `<br><strong>Date d'émission :</strong> ${result.matchedDocument.issueDate}`;
+                }
+                fileInfo.innerHTML = additionalInfo;
+            } else {
+                resultBox.className = 'result-box result-invalid';
+                resultTitle.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Document Non Reconnu';
+                resultMessage.innerHTML = `❌ Ce document ne correspond à aucun fichier authentique connu.<br>
+                    Il peut avoir été modifié ou ne pas faire partie de notre base de données.`;
+                fileInfo.innerHTML = `<strong>Fichier :</strong> ${result.fileName} (${(result.fileSize / 1024).toFixed(1)} KB)`;
+            }
+        }
+
+        // Fonction pour afficher les erreurs
+        function displayError(message) {
+            const resultBox = document.getElementById('resultBox');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultMessage = document.getElementById('resultMessage');
+            const hashValue = document.getElementById('hashValue');
+            const fileInfo = document.getElementById('fileInfo');
+            
+            resultBox.style.display = 'block';
+            resultBox.className = 'result-box result-invalid';
+            resultTitle.innerHTML = '<i class="fas fa-exclamation-circle"></i> Erreur';
+            resultMessage.textContent = message;
+            hashValue.textContent = 'N/A';
+            fileInfo.textContent = '';
+        }
+
+        // Gestion du fichier
+        async function handleFile(file) {
+            if (!file) return;
+            
+            if (file.type !== 'application/pdf') {
+                displayError('Veuillez sélectionner un fichier PDF.');
+                return;
+            }
+
+            const loading = document.getElementById('loading');
+            const resultBox = document.getElementById('resultBox');
+            
+            loading.style.display = 'block';
+            resultBox.style.display = 'none';
+
+            try {
+                const result = await verifyFileHash(file);
+                displayResult(result);
+            } catch (error) {
+                displayError(error.message);
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadZone = document.getElementById('uploadZone');
+            const fileInput = document.getElementById('fileInput');
+
+            // Click sur la zone d'upload
+            uploadZone.addEventListener('click', () => fileInput.click());
+
+            // Changement de fichier
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                handleFile(file);
+            });
+
+            // Drag & Drop
+            uploadZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadZone.classList.add('dragover');
+            });
+
+            uploadZone.addEventListener('dragleave', (e) => {
+                e.preventDefault();
+                uploadZone.classList.remove('dragover');
+            });
+
+            uploadZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadZone.classList.remove('dragover');
+                const file = e.dataTransfer.files[0];
+                handleFile(file);
+            });
+        });
+    </script>
+</body>
+</html>
