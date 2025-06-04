@@ -71,8 +71,6 @@ Banner
 }
 
 .banner .banner-image img{
-    margin-top: 15px;
-    margin-bottom: 15px;
     max-width: 150px;
     height: auto;
     border-color: #eef2f6;
