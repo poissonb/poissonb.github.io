@@ -62,3 +62,17 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+.banner{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #2e4057;
+    margin: 0; /* Supprime toutes les marges */
+    margin-top: 0; /* Spécifiquement supprime la marge supérieure */
+    border-top: none; /* Supprime toute bordure supérieure */
+}
+
+body {
+    margin: 0;
+    padding-top: 50px; /* Hauteur du header */
+}
