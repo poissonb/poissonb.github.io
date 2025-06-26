@@ -1,6 +1,230 @@
 <!DOCTYPE html>
 <html lang="fr">
 
+        <style>
+        /*
+        Header
+        */
+        .header{
+            text-align: center;
+            height: 50px;
+            background-color: 	#233143;
+            background-size: contain;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            border-bottom-style: outset;
+            border-bottom-color: #A31621;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1;
+        }
+        .header .header-menu a {
+            color: snow;
+            margin-right: 15px;
+            font-family: 'Helvetica', sans-serif;
+            text-decoration: none;
+        }
+        .header .header-menu a:hover {
+            color: #A31621;
+        }
+        .alert-message {
+            text-align: center;
+            background-color: #A31621;
+            color: white;
+            padding: 2px;
+            font-family: 'Helvetica', sans-serif;
+            font-weight: bold;
+            margin-top: 50px;
+            border-bottom: 1px solid #233143;
+        }
+        /*
+        body
+        */
+        body{
+            margin: 0;
+        }
+        /* 
+        Banner 
+        */
+        .banner{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: #2e4057;
+            margin: 0;
+            margin-top: 0;
+            border-top: none;
+        }
+        .banner .banner-content{
+            margin-left: 15px;
+        }
+        .banner .banner-image{
+            margin-right: 15px;
+        }
+        .banner .banner-image img{
+            margin-top: 15px;
+            margin-bottom: 15px;
+            max-width: 150px;
+            height: auto;
+            border-color: #eef2f6;
+            border-width: 3px;
+            border-style: solid dotted;
+            border-radius: 75px;
+        }
+        .banner .banner-content h1{
+            font-family: 'Helvetica', sans-serif;
+            color: #eef2f6;
+        }
+        .banner .banner-content h2, .banner .banner-content h3{
+            font-family: 'Helvetica', sans-serif;
+            color : #eef2f6;
+        }
+        /*
+        Contenu
+        */
+        .content{
+            display: flex;
+            flex-wrap: wrap;
+            flex-flow: column;
+            justify-content: center;
+            margin: auto;
+            max-width: 840px;
+        }
+        .content .content-title h1{
+            font-family: 'Helvetica', sans-serif;
+            color: #2e4057;
+            border-bottom-style: solid;
+        }
+        .content .content-content{
+            font-family: 'Raleway', sans-serif;
+            color: 	#2e4057;
+        }
+        /*
+        Awesome Font
+        */
+        .fas, .fa{
+            color: #A31621;
+        }
+        /*
+        Section à propos
+        */
+        /*
+        Experiences Pro
+        */
+        i.experiences-lieux{
+            color: 	#2e4057;
+        }
+        .experiences-list{
+            display: flex;
+        }
+        ul.content-content{
+            list-style-image: none;
+            list-style-position: unset;
+            list-style-type: none;
+            margin-left: 0;
+            padding-left: 0;
+        }
+        .experiences-img{
+            display: flex;
+            margin: auto;
+        }
+        .experiences-logo{
+            max-width: 64px;
+            max-height: 64px;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .experiences-text{
+            padding-left: 6px;
+            margin: 6px;
+            flex-grow: 1;
+        }
+        .experiences-lieux, .experiences-dates, .experiences-title{
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+        .experiences-content{
+            padding-top: 10px;
+            margin-top: 10px;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        /*
+        Formations
+        */
+        .formations-annees{
+            float: left;
+            padding-right: 0.4em;
+            margin-right: 0.4em;
+            border-right-style: solid;
+            border-right-color: #A31621;
+        }
+        .formations-diplome, .formations-lieux{
+            margin: 0.25em;
+            border: 0;
+        }
+        .formations-lieux{
+            margin-bottom: 1.5em;
+            font-style: italic;
+        }
+        
+        /* Styles spécifiques à la page de maintenance */
+        .maintenance-icon {
+            font-size: 4em;
+            color: #A31621;
+            margin-bottom: 20px;
+        }
+        
+        .maintenance-content {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .maintenance-content h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .maintenance-content p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .maintenance-dates {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-left: 4px solid #A31621;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .maintenance-dates strong {
+            color: #A31621;
+        }
+        
+        .apology {
+            font-style: italic;
+            color: #666;
+            margin-top: 30px;
+        }
+        
+        .return-info {
+            background-color: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 1px solid #4CAF50;
+        }
+        
+        .return-info strong {
+            color: #2e7d32;
+        }
+    </style>
+
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Baptiste POISSON - CV professionnel.">
@@ -74,291 +298,40 @@
 
         </article>
 
-        <!-- A propos-->
-
-        <!--Experiences Pro-->
-
-        <article class="experiences" id="experiences">
-            <div class="content-title">
-                <h1> <i class="fa fa-briefcase"></i> Expériences Professionnelles</h1>
-                <p class="confidentialite">Pour des raisons de confidentialité, les expériences professionnelles ne sont pas détaillées.</p>
+ <div class="content">
+        <div class="maintenance-content">
+            <div class="maintenance-icon">
+                <i class="fas fa-tools"></i>
             </div>
-            <ul class="content-content">               
-                <li class="experiences-list">
-
-                    <div class="experiences-img">
-                        <img class="experiences-logo" src="img/rponu.jpg" alt="MEAE">
-                    </div>
-
-
-                    <div class="experiences-text">
-                        <h3 class="experiences-title"><strong>Volontariat international - Mission permanente de la France auprès des Nations unies</strong></h3>
-                        <p class="experiences-dates">Du 1er novembre 2022 au 31 octobre 2023</p>
-                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> New York
-                        </p>
-                        <p class="experiences-content">Chargé de mission - spécialiste des systèmes d'information et de communication.</p>
-                    </div>
-                </li>
-
-            	<li class="experiences-list">
-
-                    <div class="experiences-img">
-                        <img class="experiences-logo" src="img/lvmh.jpg" alt="LVMH">
-                    </div>
-
-
-                    <div class="experiences-text">
-                        <h3 class="experiences-title"><strong>Apprentissage chez LVMH</strong></h3>
-                        <p class="experiences-dates">Du 13 septembre 2021 au 31 octobre 2022</p>
-                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> Paris
-                        </p>
-                        <p class="experiences-content">Apprenti assistant chef de projet cybersécurité</p>
-                    </div>
-                </li>
-
-            	<li class="experiences-list">
-
-                    <div class="experiences-img">
-                        <img class="experiences-logo" src="img/anssi.jpg" alt="Logo de l'ANSSI">
-                    </div>
-
-
-                    <div class="experiences-text">
-                        <h3 class="experiences-title"><strong>Apprentissage à l'ANSSI</strong></h3>
-                        <p class="experiences-dates">Du 04 mai 2020 au 30 juin 2021</p>
-                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> Paris
-                        </p>
-                        <p class="experiences-content"></p>
-                    </div>
-                </li>
-
-                <li class="experiences-list">
-
-                    <div class="experiences-img">
-                        <img class="experiences-logo" src="img/pr.jpg" alt="Logo de La Présidence De La République">
-                    </div>
-
-
-                    <div class="experiences-text">
-                        <h3 class="experiences-title"><strong>Apprentissage </strong>dans l'équipe Maintien en Condition de Sécurité de
-                            la
-                            Présidence de La République</h3>
-                        <p class="experiences-dates">Du 21 octobre 2019 au 25 février 2020</p>
-                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> Paris
-                        </p>
-                        <p class="experiences-content">Participation aux diverses missions quotidiennes pour
-                            maintenir
-                            le niveau de sécurité informatique de l'Élysée.</p>
-                    </div>
-                </li>
-
-                <li class="experiences-list">
-
-                    <div class="experiences-img">
-                        <img class="experiences-logo" src="img/an.jpg" alt="Logo de l'Assemblée Nationale">
-                    </div>
-
-                    <div class="experiences-text">
-                        <h3 class="experiences-title"><strong>Contrat </strong>au sein de l'équipe SSI de
-                            l'Assemblée
-                            Nationale.</h3>
-                        <p class="experiences-dates">Du 11 juillet 2019 au 16 août 2019</p>
-                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> Paris
-                        </p>
-                        <p class="experiences-content">Approfondissement des tests et configurations de l’outil de
-                            supervision des droits et des accès fichiers.</p>
-
-                    </div>
-                </li>
-
-                <li class="experiences-list">
-                    <div class="experiences-img">
-                        <img class="experiences-logo" src="img/an.jpg" alt="Logo de l'Assemblée Nationale">
-                    </div>
-
-                    <div class="experiences-text">
-                        <h3 class="experiences-title"><strong>Stage </strong>au sein de l'équipe SSI de l'Assemblée
-                            Nationale.</h3>
-                        <p class="experiences-dates">Du 06 mai 2019 au 10 juillet 2019</p>
-                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> Paris
-                        </p>
-                        <p class="experiences-content">Réalisation de tests fonctionnels et configuration d'un outil
-                            de
-                            supervision
-                            des vulnérabilités sur parc serveurs et d'un outil de supervision des droits
-                            et
-                            des accès sur les systèmes de fichiers.</p>
-                        <p class="experiences-content">Participation à la sensibilisation des députés, des collaborateurs et du personnel de l'Assemblée nationale.</p>
-                    </div>
-                </li>
-
-
-
-
-                <li class="experiences-list">
-                    <div class="experiences-img">
-                        <img class="experiences-logo" src="img/interieur.jpg" alt="Logo du Ministère de l'Intérieur">
-                    </div>
-                    <div class="experiences-text">
-                        <h3 class="experiences-title"><strong>Stage </strong>au sein du centre de cyberdéfense du
-                            ministère de l'Intérieur (C2MI).</h3>
-                        <p class="experiences-dates">Du 16 avril 2018 au 29 juin 2018</p>
-                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i>
-                            Toulouse
-                        </p>
-                        <p class="experiences-content">Participation au développement du SIEM : création
-                            d'interfaces
-                            WEB interrogeant une base Elasticsearch répondant aux besoins des analystes.</p>
-
-                    </div>
-                </li>
-
-                <li class="experiences-list">
-                    <div class="experiences-img">
-                        <img class="experiences-logo" src="img/region-normandie.jpg" alt="Logo de la Région Normandie">
-                    </div>
-                    <div class="experiences-text">
-                        <h3 class="experiences-title"><strong>Emploi saisonnier </strong>à la Direction des Lycées
-                            Normands (Région Normandie)</h3>
-                        <p class="experiences-dates">Du 31 juillet 2017 au 1er septembre 2017.</p>
-                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> Rouen
-                        </p>
-                        <p class="experiences-content">Analyse de données sur la provenance des aliments dans les
-                            lycées
-                            de la région pour le projet &laquo; Je mange normand dans mon lycée &raquo;</p>
-                    </div>
-
-                </li>
-
-
-                <li class="experiences-list">
-                    <div class="experiences-img">
-                        <img class="experiences-logo" src="img/lbp.jpg" alt="Logo de La Banque Postale">
-                    </div>
-                    <div class="experiences-text">
-                        <h3 class="experiences-title"><strong>Emploi saisonnier </strong>à La Banque Postale.</h3>
-                        <p class="experiences-dates">Du 03 juillet 2017 au 21 juillet 2017</p>
-                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> Rouen
-                        </p>
-                        <p class="experiences-content">Ouverture et clôture de comptes bancaires.</p>
-                    </div>
-
-                </li>
-            </ul>
-        </article>
-
-
-        <!--Experiences Pro-->
-
-        <!-- Formations -->
-
-        <article class="formations" id="formations">
+            
             <div class="content-title">
-                <h1> <i class="fas fa-graduation-cap"></i> Formations</h1>
+                <h1>Site en Restructuration</h1>
             </div>
+            
             <div class="content-content">
-            	<p class="flex-left formations-annees"><strong>2024</strong></p>
-                <p class="flex-right formations-diplome">Séjour linguistique de 9 mois en Colombie, cours d’espagnol reconnus par l’Institut Cervantes.</p>
-                <p class="flex-right formations-lieux">Université Sergio Arboleda</p>
-
-                <p class="flex-left formations-annees"><strong>2024</strong></p>
-                <p class="flex-right formations-diplome">Cours d’anglais reconnus par l’Ambassade des États-Unis d’Amérique</p>
-                <p class="flex-right formations-lieux">Centro Colombo Americano</p>
+                <p>Je vous informe que <strong>depuis le 26 juin 2025 à 16h00</strong>, j'ai temporairement retiré les informations de mon site CV afin de procéder à une restructuration rapide et améliorer votre expérience de navigation.</p>
                 
-            	<p class="flex-left formations-annees"><strong>2022</strong></p>
-                <p class="flex-right formations-diplome">Master Management des Systèmes d'Information et de Connaissance - sous parcours Cybersécurité </p>
-                <p class="flex-right formations-lieux">Université Panthéon-Sorbonne</p>
-
-                <p class="flex-left formations-annees"><strong>2021</strong></p>
-                <p class="flex-right formations-diplome">Master Cybersécurité</p>
-                <p class="flex-right formations-lieux">Université de Paris Cité</p>
-
-                <p class="flex-left formations-annees"><strong>2019</strong></p>
-                <p class="flex-right formations-diplome">Licence Informatique</p>
-                <p class="flex-right formations-lieux">Université de La Rochelle</p>
-
-                <p class="flex-left formations-annees"><strong>2018</strong></p>
-                <p class="flex-right formations-diplome">DUT Informatique</p>
-                <p class="flex-right formations-lieux">Institut Universitaire de Technologie d'Amiens</p>
-
-                <p class="flex-left formations-annees"><strong>2016</strong></p>
-                <p class="flex-right formations-diplome">Baccalauréat série Scientifique profil Sciences de
-                    l'Ingénieur,
-                    spécialité Physique Chimie</p>
-                <p class="flex-right formations-lieux">Lycée Blaise Pascal - Rouen</p>
+                <div class="maintenance-dates">
+                    <p><strong><i class="fas fa-calendar-alt"></i> Début de la maintenance :</strong> 26 juin 2025 à 16h00</p>
+                    <p><strong><i class="fas fa-calendar-check"></i> Retour prévu :</strong> Dans le courant de la semaine prochaine (du 30 juin au 6 juillet)</p>
+                </div>
+                
+                <div class="return-info">
+                    <p><strong><i class="fas fa-info-circle"></i> Bonne nouvelle !</strong> Je travaille activement sur les améliorations et mon site CV sera de retour très prochainement avec une meilleure structure et de nouvelles fonctionnalités.</p>
+                </div>
+                
+                <div class="return-info" style="background-color: #e3f2fd; border-color: #1976d2;">
+                    <p><strong><i class="fas fa-shield-alt"></i> Service toujours disponible !</strong> La partie vérification de fichier qui permet par le hash de savoir si le document reçu est bien émis par moi sans modification reste accessible pendant cette maintenance.</p>
+                </div>
+                
+                <p>Je mets tout en œuvre pour minimiser la durée de cette interruption et vous proposer un site encore plus performant et agréable à consulter.</p>
+                
+                <div class="apology">
+                    <p><i class="fas fa-heart"></i> Je m'excuse pour la gêne occasionnée et vous remercie de votre patience.</p>
+                </div>
             </div>
-        </article>
-        <!-- Formations -->
-
-        <!-- Compétences -->
-        <article class="competences" id="competences">
-            <div class="content-title">
-                <h1> <i class="fas fa-laptop-code"></i> Compétences</h1>
-            </div>
-            <div class="content-content">
-
-                <h3 class="competences-title">Administration système et réseaux</h3>
-                <ul>
-                    <li>Mise en place et configuration de : <b>Apache</b>, <b>nginx</b>, <b>DNS</b>, <b>MariaDB</b>, <b>MySQL</b>, <b>iptables</b>, <b>nftables</b>, <b>OpenLDAP</b>, <b>SSL/TLS</b>,
-                        <b>DHCP</b>, <b>Postfix</b>, <b>Docker</b>, <b>Yubikey</b>, <b>pfSense</b>, <b>Proxmox</b>, <b>NAS Synology</b></li>
-                    <li>Connaissances réseau TCP/IP (<b>configuration</b>, <b>routage</b>, <b>filtrage</b>) </li>
-                    <li>Connaissances en virologie (<b>obfuscation</b>, <b>propagation</b>, <b>furtivité</b>) </li>
-                </ul>
-
-                <h3 class="competences-title">Base de données</h3>
-                <ul>
-                    <li><b>SQL</b>, <b>PL/SQL</b>, <b>PL/pgSQL</b> requête, trigger, fonction, transaction, optimisation, indexation,
-                        etc.</li>
-                    <li>NoSQL : connaissances d’<b>Elasticsearch</b> (document, index, etc) </li>
-                </ul>
-
-                <h3 class="competences-title">Programmation</h3>
-                <ul>
-                    <li>Programmation procédurale et orientée objet en <b>C#</b>, <b>Java</b></li>
-                    <li>Programmation événementielle en <b>Java</b> (développement Android) et <b>Python</b> (PyQt5)</li>
-                    <li>Programmation en langage <b>C</b>, <b>Python</b></li>
-                    <li>Programmation web en <b>PHP</b>, <b>JavaScript</b>, framework <b>jQuery</b>, <b>HTML</b>, <b>CSS</b></li>
-                    <li>Traitement d’image en Python (<b>OpenCV</b>)</li>
-                    <li>Scripting en <b>Bash</b>, <b>Python</b></li>
-                </ul>
-
-                <h3 class="competences-title">Systèmes</h3>
-                <ul>
-                    <li>Linux (<b>Linux Mint</b>, <b>Ubuntu</b>, <b>CentOS</b>, <b>Debian</b>, <b>Raspbian</b>, <b>Regolith</b>), Windows <b>10</b>, Windows <b>11</b> et Windows Server (<b>AD</b>, <b>GPO</b>, <b>FSMO</b>)</li>
-                </ul>
-
-                <h3 class="competences-title">Sécurité</h3>
-                <ul>
-                	<li>SOC : Analyse de logs et traitements d'alertes (suite <b>ELK</b>, <b>Splunk</b>, <b>logs brutes</b>)</li>
-                	<li>Maîtrise de la suite ELK : Recherche en mode &#xAB; discover &#xBB;, création de &#xAB; visualization &#xBB; et de &#xAB; dashboard &#xBB;, utilisation du &#xAB; Search API &#xBB;, QueryDSL</li>
-                	<li>Analyse forensique (<b>Autopsy</b>, <b>Wireshark</b>)</li>
-                </ul>
-
-
-                <h3 class="competences-title">Fonctionnelles</h3>
-                <ul>
-                    <li>Méthode <b>EBIOS Risk Manager</b></li>
-                    <li>Connaissances générales de la réglementation : <b>RGPD</b>, <b>PGSSI-S</b>, <b>LPM</b>, <b>DORA</b>, <b>NIST CSF</b></li>
-                    <li>Connaissance des normes et cadres : <b>ISO 27001</b>, <b>ISO 27005</b>, <b>ISO 22301</b></li>
-                    <li>Gestion de projet en méthode agile (<b>Scrum</b>)</li>
-                    <li><b>Dynamique des systèmes</b></li>
-                    <li><b>Architecture d'entreprise</b></li>
-                    <li><b>Urbanisation</b> des systèmes d'information</li>
-                    <li><b>Ingénierie des exigences</b></li>
-                </ul>
-
-
-                <h3 class="competences-title">Langues</h3>
-                <ul>
-                	<li>Français (langue natale)</li>
-                    <li>Anglais niveau B2</li>
-                    <li>Espagnol niveau B2 - <b>Certification DELE</b></li>
-                </ul>
-
-            </div>
-        </article>
-
-        <!-- Compétences -->
+        </div>
+    </div>
 
     </div>
     <!-- Contenu -->
