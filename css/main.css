@@ -1,11 +1,39 @@
+/* Layout flexible avec réorganisation */
+.layout-flexible {
+    margin-bottom: 40px;
+}
+
+@media (min-width: 1600px) {
+    .layout-flexible {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px;
+    }
+    
+    .layout-flexible article {
+        margin-bottom: 0;
+        transition: all 0.3s ease;
+    }
+    
+    .section-content {
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+    }
+    
+    .section-content.collapsed {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+    }
+}
+
+
 /*
 Header
 */
-
 .header{
     text-align: center;
     height: 50px;
-    background-color: 	#233143;
+    background-color: #233143;
     background-size: contain;
     justify-content: center;
     display: flex;
@@ -15,9 +43,8 @@ Header
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 1;
+    z-index: 1000;
 }
-
 
 .header .header-menu a {
     color: snow;
@@ -25,7 +52,6 @@ Header
     font-family: 'Helvetica', sans-serif;
     text-decoration: none;
 }
-
 
 .header .header-menu a:hover {
     color: #A31621;
@@ -38,28 +64,29 @@ Header
     padding: 2px;
     font-family: 'Helvetica', sans-serif;
     font-weight: bold;
-    margin-top: 50px; /* Pour qu'il apparaisse sous le header fixe */
+    margin-top: 50px;
     border-bottom: 1px solid #233143;
 }
 
 /*
-body
+Body
 */
 body{
     margin: 0;
+    scroll-behavior: smooth;
 }
+
 /* 
 Banner 
 */
-
 .banner{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     background-color: #2e4057;
-    margin: 0; /* Supprime toutes les marges */
-    margin-top: 0; /* Spécifiquement supprime la marge supérieure */
-    border-top: none; /* Supprime toute bordure supérieure */
+    margin: 0;
+    margin-top: 50px;
+    border-top: none;
 }
 
 .banner .banner-content{
@@ -92,7 +119,7 @@ Banner
 }
 
 /*
-Contenu
+Contenu - LARGEURS ADAPTATIVES
 */
 .content{
     display: flex;
@@ -100,9 +127,87 @@ Contenu
     flex-flow: column;
     justify-content: center;
     margin: auto;
-    max-width: 840px;
+    max-width: 100%;
+    padding: 0 20px;
 }
 
+/* Layout en grille pour les grandes sections sur grands écrans */
+@media (min-width: 1600px) {
+    .content {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    /* Sections qui peuvent être côte à côte */
+    .section-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        align-items: start;
+    }
+    
+    /* Sections qui restent sur toute la largeur */
+    .full-width-section {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Largeurs adaptatives selon la taille d'écran */
+@media (min-width: 1200px) {
+    .content {
+        max-width: 1140px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .content {
+        max-width: 1320px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .content {
+        max-width: 1500px;
+    }
+}
+
+@media (min-width: 1920px) {
+    .content {
+        max-width: 1700px;
+    }
+}
+
+/* Sections individuelles - gestion du layout côte à côte */
+.section-collapsible {
+    margin-bottom: 20px;
+}
+
+/* Pour les écrans larges, certaines sections côte à côte */
+@media (min-width: 1600px) {
+    /* Container pour les sections qui doivent être côte à côte */
+    .sections-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+    
+    /* Ajustement des marges pour les sections en grille */
+    .sections-row .section-collapsible {
+        margin-bottom: 0;
+    }
+    
+    /* Si une section doit rester seule sur sa ligne */
+    .section-full-width {
+        grid-column: 1 / -1;
+    }
+    
+    /* Équilibrage des hauteurs pour un meilleur alignement */
+    .sections-row > * {
+        height: 100%;
+    }
+}
 
 .content .content-title h1{
     font-family: 'Helvetica', sans-serif;
@@ -110,40 +215,29 @@ Contenu
     border-bottom-style: solid;
 }
 
-
 .content .content-content{
     font-family: 'Raleway', sans-serif;
-    color: 	#2e4057;
+    color: #2e4057;
 }
 
 /*
-Awesome Font
+Font Awesome
 */
-
 .fas, .fa{
     color: #A31621;
-    
 }
 
 /*
-Section à propos
+Experiences Professionnelles
 */
-
-
-
-
-/*
-Experiences Pro
-*/
-
 i.experiences-lieux{
-    color: 	#2e4057;
+    color: #2e4057;
 }
 
 .experiences-list{
     display: flex;
+    margin-bottom: 0.5em;
 }
-
 
 ul.content-content{
     list-style-image: none;
@@ -155,7 +249,8 @@ ul.content-content{
 
 .experiences-img{
     display: flex;
-    margin: auto;
+    margin-right: 10px;
+    align-self: flex-start;
 }
 
 .experiences-logo{
@@ -163,6 +258,7 @@ ul.content-content{
     max-height: 64px;
     position: relative;
     flex-shrink: 0;
+    margin-top: 1.6em;
 }
 
 .experiences-text{
@@ -171,12 +267,28 @@ ul.content-content{
     flex-grow: 1;
 }
 
-
+.experiences-entite {
+    font-weight: normal;
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 3px;
+    margin-top: 0;
+    line-height: 1.2;
+    font-style: normal;
+}
 
 .experiences-lieux, .experiences-dates, .experiences-title{
     margin: 0;
     padding: 0;
     border: 0;
+}
+
+.experiences-lieux {
+    font-size: 0.80em;
+}
+
+.experiences-dates {
+    font-size: 0.95em;
 }
 
 .experiences-content{
@@ -186,11 +298,27 @@ ul.content-content{
     margin-bottom: 10px;
 }
 
+.experiences-contrat {
+    font-size: 0.8em;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 5px;
+}
 
+.confidentialite {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 15px;
+}
 
 /*
-Formations
+Formations/Parcours étudiant
 */
+.formations-item {
+    display: flex;
+    margin-bottom: 0.5em;
+    align-items: flex-start;
+}
 
 .formations-annees{
     float: left;
@@ -198,7 +326,11 @@ Formations
     margin-right: 0.4em;
     border-right-style: solid;
     border-right-color: #A31621;
+    min-width: 60px;
+}
 
+.formations-details {
+    flex: 1;
 }
 
 .formations-diplome, .formations-lieux{
@@ -207,7 +339,729 @@ Formations
 }
 
 .formations-lieux{
-    margin-bottom: 1.5em;
     font-style: italic;
+}
 
+/*
+Certifications
+*/
+.certification-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-left: 3px solid #A31621;
+    background-color: #f9f9f9;
+}
+
+.certification-titre {
+    font-weight: bold;
+    color: #2e4057;
+    margin-bottom: 5px;
+}
+
+.certification-organisme {
+    color: #A31621;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.certification-date {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.certification-description {
+    font-size: 0.9em;
+    color: #555;
+}
+
+
+
+/* 
+Compétences - Solution 4 : Hybride Adaptatif
+Ajoutez ces règles à votre main.css existant
+*/
+
+/* Grille adaptative pour les compétences moyennes */
+.competence-list.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 8px 15px;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.competence-list.grid-layout li {
+    margin-bottom: 5px;
+    padding-left: 15px;
+    position: relative;
+    break-inside: avoid;
+}
+
+.competence-list.grid-layout li:before {
+    content: "▶";
+    color: #A31621;
+    position: absolute;
+    left: 0;
+}
+
+/* Tags en ligne pour les compétences courtes */
+.competence-list.inline-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.competence-list.inline-layout li {
+    background: #e9ecef;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    border: 1px solid #dee2e6;
+    margin-bottom: 0;
+    padding-left: 12px;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.competence-list.inline-layout li:hover {
+    background: #A31621;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(163, 22, 33, 0.3);
+}
+
+.competence-list.inline-layout li:before {
+    display: none;
+}
+
+.competence-list.inline-layout li strong {
+    font-weight: 500;
+}
+
+.competence-list.inline-layout li a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.competence-list.inline-layout li:hover a {
+    color: white;
+}
+
+/* Colonnes pour les listes avec descriptions */
+.competence-list.columns-layout {
+    column-count: 2;
+    column-gap: 30px;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.competence-list.columns-layout li {
+    break-inside: avoid;
+    margin-bottom: 8px;
+    padding-left: 15px;
+    position: relative;
+}
+
+.competence-list.columns-layout li:before {
+    content: "▶";
+    color: #A31621;
+    position: absolute;
+    left: 0;
+}
+
+/* Amélioration des liens dans toutes les listes */
+.competence-list a {
+    color: #2e4057;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.competence-list a:hover {
+    color: #A31621;
+    text-decoration: underline;
+}
+
+/* Responsive pour les nouveaux layouts */
+@media (max-width: 768px) {
+    .competence-list.grid-layout {
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+    
+    .competence-list.columns-layout {
+        column-count: 1;
+    }
+    
+    .competence-list.inline-layout {
+        gap: 5px;
+    }
+    
+    .competence-list.inline-layout li {
+        font-size: 0.8em;
+        padding: 4px 8px;
+        border-radius: 15px;
+    }
+}
+
+/* Amélioration de l'espacement vertical entre les sous-sections */
+.competence-category h4 + .competence-list {
+    margin-top: 8px;
+}
+
+.competences-filters {
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.filter-btn {
+    background-color: #233143;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Raleway', sans-serif;
+    transition: background-color 0.3s;
+}
+
+.filter-btn:hover {
+    background-color: #A31621;
+}
+
+.filter-btn.active {
+    background-color: #A31621;
+}
+
+/* Grille adaptative pour les compétences sur grand écran */
+@media (min-width: 1200px) {
+    .competences-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 25px;
+    }
+}
+
+/* Pour les très grands écrans, limite à 2 colonnes si dans une section-row */
+@media (min-width: 1600px) {
+    .sections-row .competences-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.competence-category {
+    margin-bottom: 25px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    clear: both;
+    overflow: visible;
+    display: block;
+}
+
+.competence-category.priority {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(163, 22, 33, 0.15);
+    border-left: 4px solid #A31621;
+}
+
+.competence-category h3 {
+    color: #2e4057;
+    border-bottom: 2px solid #A31621;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.competence-category h4 {
+    color: #A31621;
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+.competence-list {
+    list-style: none;
+    padding: 0;
+}
+
+.competence-list li {
+    margin-bottom: 5px;
+    padding-left: 15px;
+    position: relative;
+}
+
+.competence-list li:before {
+    content: "▶";
+    color: #A31621;
+    position: absolute;
+    left: 0;
+}
+
+/*
+Sections pliables/dépliables
+*/
+.section-collapsible {
+    margin-bottom: 20px;
+}
+
+/* Layout côte à côte pour articles sur grands écrans */
+@media (min-width: 1600px) {
+    /* Layout asymétrique avec colonne principale et colonne secondaire */
+    .sections-asymmetric {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+    
+    /* Colonne principale (prend toute la hauteur) */
+    .main-column {
+        grid-row: span 2;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    /* Réorganisation de l'ordre dans la colonne principale */
+    .main-column .order-1 {
+        order: 1;
+    }
+    
+    .main-column .order-2 {
+        order: 2;
+    }
+    
+    /* Colonne secondaire avec deux sections empilées */
+    .side-column {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    /* Ajustements pour les articles dans les colonnes */
+    .main-column article,
+    .side-column article {
+        margin-bottom: 0;
+    }
+    
+    /* Alternative : layout avec grid-template-areas */
+    .sections-grid-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+    
+    .sections-grid-layout .span-rows {
+        grid-row: 1 / -1;
+    }
+    
+    /* Reset des marges pour les articles dans les layouts spéciaux */
+    .sections-asymmetric article,
+    .sections-grid-layout article {
+        margin-bottom: 0;
+    }
+}
+
+/* Alternative avec wrapper sections-row (standard 2 colonnes) */
+.sections-row {
+    margin-bottom: 40px;
+}
+
+@media (min-width: 1600px) {
+    .sections-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+    
+    .sections-row article {
+        margin-bottom: 0;
+    }
+}
+
+.section-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+.section-header:hover {
+    color: #A31621;
+}
+
+.collapse-icon {
+    transition: transform 0.3s ease;
+    font-size: 0.8em;
+}
+
+.section-content {
+    max-height: none !important;
+    overflow: visible !important;
+    transition: opacity 0.3s ease;
+    opacity: 1;
+}
+
+.section-content.collapsed {
+    max-height: 0 !important;
+    overflow: hidden !important;
+    opacity: 0;
+}
+
+.collapse-icon.rotated {
+    transform: rotate(180deg);
+}
+
+/*
+Langues - GRILLE RESPONSIVE
+*/
+.langues-grid {
+    display: grid;
+    gap: 20px;
+}
+
+/* Adaptation selon la largeur d'écran */
+@media (min-width: 768px) {
+    .langues-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .langues-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1600px) {
+    .langues-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.langue-item {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.langue-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.langue-flag {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.langue-item h4 {
+    color: #2e4057;
+    margin: 10px 0 5px 0;
+}
+
+.langue-niveau {
+    font-weight: bold;
+    color: #A31621;
+    margin-bottom: 5px;
+}
+
+.langue-detail {
+    font-size: 0.9em;
+    color: #666;
+    font-style: italic;
+}
+
+/*
+Qualités professionnelles - GRILLE RESPONSIVE AMÉLIORÉE
+*/
+.qualites-grid {
+    display: grid;
+    gap: 30px;
+    margin: 0 auto;
+}
+
+/* Adaptation dynamique selon la largeur d'écran */
+@media (min-width: 768px) {
+    .qualites-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .qualites-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1600px) {
+    .qualites-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Cas spécifiques pour éviter les items isolés */
+.qualites-grid:has(.qualite-item:nth-child(5):last-child) {
+    @media (min-width: 1200px) and (max-width: 1599px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.qualite-item {
+    padding: 30px 25px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.qualite-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(163, 22, 33, 0.15);
+}
+
+.qualite-icon {
+    font-size: 2.5em;
+    color: #A31621;
+    margin-bottom: 20px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qualite-item h4 {
+    color: #2e4057;
+    margin: 0 0 15px 0;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+}
+
+.qualite-item p {
+    font-size: 0.95em;
+    color: #555;
+    line-height: 1.5;
+    margin: 0;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+/*
+Intérêts - GRILLE RESPONSIVE
+*/
+.interets-grid {
+    display: grid;
+    gap: 15px;
+}
+
+@media (min-width: 576px) {
+    .interets-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .interets-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .interets-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1400px) {
+    .interets-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.interet-item {
+    text-align: center;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.interet-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.interet-icon img {
+    width: 1em !important;
+    height: 1em !important;
+    object-fit: contain;
+    filter: invert(14%) sepia(63%) saturate(4839%) hue-rotate(345deg) brightness(82%) contrast(95%);
+}
+
+.interet-icon {
+    font-size: 2em;
+    color: #A31621;
+    margin-bottom: 10px;
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.interet-icon i {
+    font-size: 1em;
+}
+
+/*
+Responsive Design - MOBILE ET TABLETTE
+*/
+@media (max-width: 768px) {
+    .header .header-menu {
+        font-size: 0.8em;
+        flex-wrap: wrap;
+    }
+
+    .header .header-menu a {
+        margin-right: 8px;
+    }
+
+    .banner {
+        text-align: center;
+        padding: 10px;
+    }
+
+    .banner .banner-content {
+        margin-left: 0;
+    }
+
+    .banner .banner-image {
+        margin-right: 0;
+    }
+
+    .content {
+        padding: 0 15px;
+        max-width: 100%;
+    }
+
+    .experiences-list {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .experiences-img {
+        margin-bottom: 10px;
+        margin-right: 0;
+        margin-top: 0;
+        align-self: center;
+        justify-content: center;
+    }
+
+    .experiences-logo {
+        max-width: 48px;
+        max-height: 48px;
+    }
+
+    .formations-item {
+        flex-direction: column;
+    }
+
+    .formations-annees {
+        border-right: none;
+        border-bottom: 1px solid #A31621;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .filter-btn {
+        font-size: 0.8em;
+        padding: 8px 12px;
+    }
+
+    .langues-grid,
+    .qualites-grid,
+    .interets-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .qualite-item {
+        min-height: auto;
+    }
+
+    .section-header {
+        font-size: 0.9em;
+    }
+}
+
+/* Adaptation pour tablettes */
+@media (min-width: 769px) and (max-width: 991px) {
+    .content {
+        max-width: 100%;
+        padding: 0 30px;
+    }
+    
+    .qualites-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .langues-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .interets-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Media query pour très grands écrans */
+@media (min-width: 2560px) {
+    .content {
+        max-width: 2200px;
+    }
+    
+    /* Pour les écrans ultra-larges, possibilité de 3 colonnes */
+    .sections-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    /* Mais garde 2 colonnes pour certaines combinaisons */
+    .sections-row.two-columns {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .qualites-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    
+    .langues-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    
+    .interets-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
 }

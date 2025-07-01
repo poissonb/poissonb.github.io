@@ -1,230 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-        <style>
-        /*
-        Header
-        */
-        .header{
-            text-align: center;
-            height: 50px;
-            background-color: 	#233143;
-            background-size: contain;
-            justify-content: center;
-            display: flex;
-            flex-direction: column;
-            border-bottom-style: outset;
-            border-bottom-color: #A31621;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1;
-        }
-        .header .header-menu a {
-            color: snow;
-            margin-right: 15px;
-            font-family: 'Helvetica', sans-serif;
-            text-decoration: none;
-        }
-        .header .header-menu a:hover {
-            color: #A31621;
-        }
-        .alert-message {
-            text-align: center;
-            background-color: #A31621;
-            color: white;
-            padding: 2px;
-            font-family: 'Helvetica', sans-serif;
-            font-weight: bold;
-            margin-top: 50px;
-            border-bottom: 1px solid #233143;
-        }
-        /*
-        body
-        */
-        body{
-            margin: 0;
-        }
-        /* 
-        Banner 
-        */
-        .banner{
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            background-color: #2e4057;
-            margin: 0;
-            margin-top: 0;
-            border-top: none;
-        }
-        .banner .banner-content{
-            margin-left: 15px;
-        }
-        .banner .banner-image{
-            margin-right: 15px;
-        }
-        .banner .banner-image img{
-            margin-top: 15px;
-            margin-bottom: 15px;
-            max-width: 150px;
-            height: auto;
-            border-color: #eef2f6;
-            border-width: 3px;
-            border-style: solid dotted;
-            border-radius: 75px;
-        }
-        .banner .banner-content h1{
-            font-family: 'Helvetica', sans-serif;
-            color: #eef2f6;
-        }
-        .banner .banner-content h2, .banner .banner-content h3{
-            font-family: 'Helvetica', sans-serif;
-            color : #eef2f6;
-        }
-        /*
-        Contenu
-        */
-        .content{
-            display: flex;
-            flex-wrap: wrap;
-            flex-flow: column;
-            justify-content: center;
-            margin: auto;
-            max-width: 840px;
-        }
-        .content .content-title h1{
-            font-family: 'Helvetica', sans-serif;
-            color: #2e4057;
-            border-bottom-style: solid;
-        }
-        .content .content-content{
-            font-family: 'Raleway', sans-serif;
-            color: 	#2e4057;
-        }
-        /*
-        Awesome Font
-        */
-        .fas, .fa{
-            color: #A31621;
-        }
-        /*
-        Section à propos
-        */
-        /*
-        Experiences Pro
-        */
-        i.experiences-lieux{
-            color: 	#2e4057;
-        }
-        .experiences-list{
-            display: flex;
-        }
-        ul.content-content{
-            list-style-image: none;
-            list-style-position: unset;
-            list-style-type: none;
-            margin-left: 0;
-            padding-left: 0;
-        }
-        .experiences-img{
-            display: flex;
-            margin: auto;
-        }
-        .experiences-logo{
-            max-width: 64px;
-            max-height: 64px;
-            position: relative;
-            flex-shrink: 0;
-        }
-        .experiences-text{
-            padding-left: 6px;
-            margin: 6px;
-            flex-grow: 1;
-        }
-        .experiences-lieux, .experiences-dates, .experiences-title{
-            margin: 0;
-            padding: 0;
-            border: 0;
-        }
-        .experiences-content{
-            padding-top: 10px;
-            margin-top: 10px;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-        }
-        /*
-        Formations
-        */
-        .formations-annees{
-            float: left;
-            padding-right: 0.4em;
-            margin-right: 0.4em;
-            border-right-style: solid;
-            border-right-color: #A31621;
-        }
-        .formations-diplome, .formations-lieux{
-            margin: 0.25em;
-            border: 0;
-        }
-        .formations-lieux{
-            margin-bottom: 1.5em;
-            font-style: italic;
-        }
-        
-        /* Styles spécifiques à la page de maintenance */
-        .maintenance-icon {
-            font-size: 4em;
-            color: #A31621;
-            margin-bottom: 20px;
-        }
-        
-        .maintenance-content {
-            text-align: center;
-            padding: 40px 20px;
-        }
-        
-        .maintenance-content h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-        
-        .maintenance-content p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-        
-        .maintenance-dates {
-            background-color: #f5f5f5;
-            padding: 20px;
-            border-left: 4px solid #A31621;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-        
-        .maintenance-dates strong {
-            color: #A31621;
-        }
-        
-        .apology {
-            font-style: italic;
-            color: #666;
-            margin-top: 30px;
-        }
-        
-        .return-info {
-            background-color: #e8f5e8;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 20px 0;
-            border: 1px solid #4CAF50;
-        }
-        
-        .return-info strong {
-            color: #2e7d32;
-        }
-    </style>
-
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="Baptiste POISSON - CV professionnel.">
@@ -232,20 +8,15 @@
     <meta name="author" content="Baptiste POISSON">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:700|Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
+    
     <!-- CSS -->
-    <link rel="stylesheet" href="css/fontawesome.min.css">
-    <link rel="stylesheet" href="css/solid.min.css">
     <link rel="stylesheet" href="css/main.css">
 
-    <!-- CSS -->
-
-    <!-- Font -->
-
-    <link href="https://fonts.googleapis.com/css?family=Merriweather:700|Raleway&display=swap" rel="stylesheet">
-
-    <!-- Font -->
-
-    <title>Baptiste POISSON - CV professionnel | Compétences, Expériences, Formations</title>
+    <title>Baptiste POISSON - CV professionnel</title>
 </head>
 
 <body>
@@ -253,15 +24,17 @@
     <header class="header">
         <nav class="header-menu">
             <a href="#propos">À propos</a>
+            <a href="#experiences">Expériences</a>
+            <a href="#competences">Compétences</a>
+            <a href="#qualites">Savoir-être</a>
+            <a href="#apprentissage">Formation continue</a>
+            <a href="#parcours">Études</a>
+            <a href="#langues">Langues</a>
+            <a href="#interets">Centres d'intérêt</a>
             <a href="/verifile.html"><i class="fas fa-shield-alt"></i>Vérif. document</a>
         </nav>
     </header>
 
-    <div class="alert-message">
-        En attendant, la version est disponible en QA : <a href="http://qa1.bap.ovh">ici</a> et <a href="http://qa2.bap.ovh">ici</a>
-    </div>
-
-    <!--Header -->
 
     <!-- Banner -->
     <div class="banner">
@@ -270,52 +43,598 @@
         </div>
         <div class="banner-content">
             <h1>Baptiste POISSON</h1>
-            <h2>Professionnel en Cybersécurité et <br>Management des systèmes d'information et de connaissance.</h2>
+            <h2>Professionnel en Cybersécurité et en <br>Management des systèmes d'information et de communication</h2>
         </div>
     </div>
 
-    <!-- Banner-->
-
-
-
-
- <div class="content">
-        <div class="maintenance-content">
-            <div class="maintenance-icon">
-                <i class="fas fa-tools"></i>
-            </div>
-            
-            <div class="content-title">
-                <h1>Site en Restructuration</h1>
-            </div>
-            
-            <div class="content-content">
-                <p>Je vous informe que <strong>depuis le 26 juin 2025 à 16h00</strong>, j'ai temporairement retiré les informations de mon site CV afin de procéder à une restructuration rapide et améliorer votre expérience de navigation.</p>
-                
-                <div class="maintenance-dates">
-                    <p><strong><i class="fas fa-calendar-alt"></i> Début de la maintenance :</strong> 26 juin 2025 à 16h00</p>
-                    <p><strong><i class="fas fa-calendar-check"></i> Retour prévu :</strong> Dans le courant de la semaine prochaine (du 30 juin au 6 juillet)</p>
-                </div>
-                
-                <div class="return-info">
-                    <p><strong><i class="fas fa-info-circle"></i> Bonne nouvelle !</strong> Je travaille activement sur les améliorations et mon site CV sera de retour très prochainement avec une meilleure structure et de nouvelles fonctionnalités.</p>
-                </div>
-                
-                <div class="return-info" style="background-color: #e3f2fd; border-color: #1976d2;">
-                    <p><strong><i class="fas fa-shield-alt"></i> Service toujours disponible !</strong> La partie vérification de fichier qui permet par le hash de savoir si le document reçu est bien émis par moi sans modification reste accessible pendant cette maintenance.</p>
-                </div>
-                
-                <p>Je mets tout en œuvre pour minimiser la durée de cette interruption et vous proposer un site encore plus performant et agréable à consulter.</p>
-                
-                <div class="apology">
-                    <p><i class="fas fa-heart"></i> Je m'excuse pour la gêne occasionnée et vous remercie de votre patience.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    </div>
     <!-- Contenu -->
+     <div class="layout-flexible">
+    <div class="content">
+        <!-- 1. À propos -->
+        <article class="propos section-collapsible" id="propos">
+            <div class="content-title">
+                <h1 class="section-header">
+                    <i class="fas fa-id-badge"></i> À propos
+                    <i class="fas fa-chevron-up collapse-icon"></i>
+                </h1>
+            </div>
+            <div class="content-content section-content">
+                <p><strong>Prénom : </strong>Baptiste</p>
+                <p><strong>Nom : </strong>POISSON</p>
+                <p><strong>Âge : </strong>26</p>
+                <p><strong>Adresse mél : </strong>baptiste.poisson@poissonb.fr</p>
+                <p><strong>Divers : </strong>Permis B</p>
+            </div>
+        </article>
+
+
+
+        <!-- 2. Expériences Professionnelles -->
+        <article class="experiences section-collapsible" id="experiences">
+            <div class="content-title">
+                <h1 class="section-header">
+                    <i class="fa fa-briefcase"></i> Expériences Professionnelles
+                    <i class="fas fa-chevron-up collapse-icon"></i>
+                </h1>
+                <p class="confidentialite">Pour des raisons de confidentialité, les expériences professionnelles ne sont pas détaillées.</p>
+            </div>
+            <ul class="content-content section-content">               
+                <li class="experiences-list">
+                    <div class="experiences-img">
+                        <img class="experiences-logo" src="img/meae.jpg" alt="Logo du Ministère de l'Europe et des Affaires Étrangères.">
+                    </div>
+                    <div class="experiences-text">
+                        <h3 class="experiences-title"><strong>Chargé de mission - spécialiste des systèmes d'information et de communication.</strong></h3>
+                        <div class="experiences-entite">Mission permanente de la France auprès des Nations unies</div>
+                        <p class="experiences-dates">Du 1er novembre 2022 au 31 octobre 2023.</p>
+                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> New York</p>
+                        <div class="experiences-contrat">Volontariat International en Administration</div>
+                        <p class="experiences-content">Assistance auprès des utilisateurs. <br>
+                            Sensibilisation à la sécurité de l'information. <br>
+                            Renouvellement du parc informatique. <br>
+                            Mise en place de visioconférences sécurisées. <br>
+                        </p>
+                    </div>
+                </li>
+
+                <li class="experiences-list">
+                    <div class="experiences-img">
+                        <img class="experiences-logo" src="img/lvmh.jpg" alt="Logo du groupe LVMH.">
+                    </div>
+                    <div class="experiences-text">
+                        <h3 class="experiences-title"><strong>Assistant chef de projet cybersécurité</strong></h3>
+                        <div class="experiences-entite">LVMH (holding)</div>
+                        <p class="experiences-dates">Du 13 septembre 2021 au 31 octobre 2022.</p>
+                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> Paris</p>
+                        <div class="experiences-contrat">Apprentissage</div>
+                        <p class="experiences-content">AMOA / Assistant chef de projet cybersécurité. <br>
+                        - Animation des réunions de suivi avec les différentes parties prenantes du projet. <br>
+                        - Rédaction des user stories, définition des droits d'accès, conception des cas de test. <br>
+                        - Recueil des retours des utilisateurs pilotes, priorisation des fonctionnalités, suivi des correctifs et évolutions. <br>
+                        - Participation aux arbitrages techniques.</p>
+                    </div>
+                </li>
+
+                <li class="experiences-list">
+                    <div class="experiences-img">
+                        <img class="experiences-logo" src="img/anssi.jpg" alt="Logo de l'Agence nationale de la sécurité des systèmes d'information.">
+                    </div>
+                    <div class="experiences-text">
+                        <h3 class="experiences-title"><strong>Analyste en détection d'intrusion</strong></h3>
+                        <div class="experiences-entite">Agence nationale de la sécurité des systèmes d'information</div>                       
+                        <p class="experiences-dates">Du 04 mai 2020 au 30 juin 2021</p>
+                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> Paris</p>
+                        <div class="experiences-contrat">Apprentissage</div>
+                        <p class="experiences-content">- Traitement des alertes relatives aux bénéficiaires. <br>
+                                - Signalement auprès des bénéficiaires en cas de compromissions. <br>
+                                - Amélioration continue des outils d’analyses. <br>
+                                - Participation à la mise en exploitation des nouveaux bénéficiaires.</p>
+                    </div>
+                </li>
+
+                <li class="experiences-list">
+                    <div class="experiences-img">
+                        <img class="experiences-logo" src="img/pr.jpg" alt="Logo de la Présidence de la République.">
+                    </div>
+                    <div class="experiences-text">
+                        <h3 class="experiences-title"><strong>Analyste en cybersécurité</strong></h3>
+                        <div class="experiences-entite">Présidence de la République</div>
+                        <p class="experiences-dates">Du 21 octobre 2019 au 25 février 2020</p>
+                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> Paris</p>
+                        <div class="experiences-contrat">Apprentissage</div>
+                        <p class="experiences-content">- Analyse des risques logiciels via exécution en sandbox pour détecter les impacts sur le système. <br>
+                            - Évaluation de certains risques par de l’OSINT.
+                        </p>
+                    </div>
+                </li>
+
+
+                <li class="experiences-list">
+                    <div class="experiences-img">
+                        <img class="experiences-logo" src="img/an.jpg" alt="Assemblée nationale">
+                    </div>
+                    <div class="experiences-text">
+                        <h3 class="experiences-title"><strong>Analyste en cybersécurité</strong></h3>
+                        <div class="experiences-entite">Assemblée nationale</div>
+                        <p class="experiences-dates">Du 11 juillet 2019 au 16 août 2019</p>
+                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> Paris</p>
+                        <div class="experiences-contrat">CDD</div>
+                        <p class="experiences-content">Approfondissement des tests et configurations de l’outil de supervision des droits et des accès fichiers.</p>
+                    </div>
+                </li>
+
+                <li class="experiences-list">
+                    <div class="experiences-img">
+                        <img class="experiences-logo" src="img/an.jpg" alt="Assemblée nationale">
+                    </div>
+                    <div class="experiences-text">
+                        <h3 class="experiences-title"><strong>Analyste en cybersécurité</strong></h3>
+                        <div class="experiences-entite">Assemblée nationale</div>
+                        <p class="experiences-dates">Du 06 mai 2019 au 10 juillet 2019</p>
+                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> Paris</p>
+                        <div class="experiences-contrat">Stage</div>
+                        <p class="experiences-content">Au sein de l’équipe SSI : <br>
+                        - Participation à un POC d’un outil de supervision des vulnérabilités + montée de version d’un outil de contrôle des droits d’accès : <br>
+                            &nbsp;&nbsp;- Configuration, tests, personnalisation de l’outil de supervision des vulnérabilités (POC pré-acquisition) <br>
+                            &nbsp;&nbsp;- Échanges avec l’éditeur, remontée de bugs, propositions d’évolutions <br>
+                            &nbsp;&nbsp;- Montée de version majeure d’un outil de supervision des droits d’accès et tests de non-régression <br>
+                        - Participation à la sensibilisation des dirigeants et du personnels de l’entreprise
+                        </p>
+                    </div>
+                </li>
+
+                <li class="experiences-list">
+                    <div class="experiences-img">
+                        <img class="experiences-logo" src="img/interieur.jpg" alt="Logo du Ministère de l'Intérieur">
+                    </div>
+                    <div class="experiences-text">
+                        <h3 class="experiences-title"><strong>Assistant chef de projet cybersécurité</strong></h3>
+                        <div class="experiences-entite">Centre de cyberdéfense du ministère de l'Intérieur (C2MI)</div>
+                        <p class="experiences-dates">Du 16 avril 2018 au 29 juin 2018</p>
+                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> Toulouse</p>
+                        <div class="experiences-contrat">Stage</div>
+                        <p class="experiences-content">Recueil des besoins des analystes et développement d’interfaces web interrogeant une base Elasticsearch.</p>
+                    </div>
+                </li>
+
+                <li class="experiences-list">
+                    <div class="experiences-img">
+                        <img class="experiences-logo" src="img/region-normandie.jpg" alt="Logo de la Région Normandie">
+                    </div>
+                    <div class="experiences-text">
+                        <h3 class="experiences-title"><strong>Agent de saisie et d’analyse de données</strong></h3>
+                        <div class="experiences-entite">Région Normandie</div>
+                        <p class="experiences-dates">Du 31 juillet 2017 au 1er septembre 2017.</p>
+                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> Rouen</p>
+                        <div class="experiences-contrat">CDD</div>
+                        <p class="experiences-content">Analyse de données sur la provenance des aliments dans les lycées de la région pour le projet « Je mange normand dans mon lycée »</p>
+                    </div>
+                </li>
+
+                <li class="experiences-list">
+                    <div class="experiences-img">
+                        <img class="experiences-logo" src="img/lbp.jpg" alt="Logo de La Banque Postale">
+                    </div>
+                    <div class="experiences-text">                        
+                        <h3 class="experiences-title"><strong>Assistant administratif </strong></h3>
+                        <div class="experiences-entite">La Banque Postale</div>
+                        <p class="experiences-dates">Du 03 juillet 2017 au 21 juillet 2017</p>
+                        <p class="experiences-lieux"><i class="fas fa-map-marked-alt experiences-lieux"></i> Rouen</p>
+                        <div class="experiences-contrat">CDD</div>
+                        <p class="experiences-content">Ouverture et clôture de comptes bancaires.</p>
+                    </div>
+                </li>
+            </ul>
+        </article>
+
+        <!-- 3. Compétences techniques -->
+       <article class="competences section-collapsible" id="competences">
+    <div class="content-title">
+        <h1 class="section-header">
+            <i class="fas fa-laptop-code"></i> Compétences
+            <i class="fas fa-chevron-up collapse-icon"></i>
+        </h1>
+    </div>
+    
+    <div class="competences-filters">
+        <button class="filter-btn active" data-profile="all">Toutes les compétences</button>
+        <button class="filter-btn" data-profile="chef-projet">Chef de projet cybersécurité</button>
+        <button class="filter-btn" data-profile="consultant-grc">Consultant GRC</button>
+        <button class="filter-btn" data-profile="rssi">RSSI</button>
+    </div>
+
+    <div class="content-content section-content" id="competences-content">
+        <!-- Gouvernance, Risques & Conformité -->
+        <div class="competence-category" data-skills="consultant-grc,rssi" data-priority-chef-projet="6" data-priority-consultant-grc="1" data-priority-rssi="1" data-priority-all="1">
+            <h3>Gouvernance, Risques & Conformité</h3>
+            
+            <h4>Méthodologie d'analyse de risques</h4>
+            <ul class="competence-list inline-layout">
+                <li><strong><a href="https://cyber.gouv.fr/la-methode-ebios-risk-manager">EBIOS Risk Manager</a></strong></li>
+            </ul>
+
+            <h4>Cadres & normes</h4>
+            <ul class="competence-list grid-layout">
+                <li><strong><a href="https://www.iso.org/fr/standard/27001">ISO 27001</a></strong></li>
+                <li><strong><a href="https://www.iso.org/fr/standard/75652.html">ISO 27002</a></strong></li>
+                <li><strong><a href="https://www.iso.org/fr/standard/80585.html">ISO 27005</a></strong></li>
+                <li><strong><a href="https://www.iso.org/fr/standard/75106.html">ISO 22301</a></strong></li>
+                <li><strong><a href="https://nvlpubs.nist.gov/nistpubs/CSWP/NIST.CSWP.29.pdf">NIST CSF</a></strong></li>
+            </ul>
+
+            <h4>Réglementation</h4>
+            <ul class="competence-list columns-layout">
+                <li><strong><a href="https://www.cnil.fr/fr/reglement-europeen-protection-donnees">RGPD</a></strong> : Règlement Général sur la Protection des Données</li>
+                <li><strong><a href="https://cyber.gouv.fr/la-directive-nis-2">NIS2</a></strong> : Directive sur la sécurité des réseaux et systèmes d'information</li>
+                <li><strong><a href="https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006071307/LEGISCTA000006151496/#LEGISCTA000006151496">LPM</a></strong> : Loi de Programmation Militaire</li>
+                <li><strong><a href="https://www.eiopa.europa.eu/digital-operational-resilience-act-dora_en">DORA</a></strong> : Digital Operational Resilience Act</li>
+            </ul>
+        </div>
+
+        <!-- Gestion de projet -->
+        <div class="competence-category" data-skills="chef-projet,consultant-grc,rssi" data-priority-chef-projet="2" data-priority-consultant-grc="3" data-priority-rssi="3" data-priority-all="2">
+            <h3>Gestion de projet</h3>
+            
+            <h4>Méthodologie agile</h4>
+            <ul class="competence-list inline-layout">
+                <li><strong>Scrum</strong></li>
+                <li><strong>Kanban</strong></li>
+            </ul>
+
+            <h4>Autres compétences</h4>
+            <ul class="competence-list inline-layout">
+                <li><strong>Urbanisation du SI</strong></li>
+                <li><strong>Ingénierie des exigences</strong></li>
+                <li><strong>Architecture d'entreprise</strong></li>
+            </ul>
+        </div>
+
+        <!-- Cybersécurité opérationnelle -->
+        <div class="competence-category" data-skills="chef-projet,rssi" data-priority-chef-projet="1" data-priority-consultant-grc="4" data-priority-rssi="2" data-priority-all="3">
+            <h3>Cybersécurité opérationnelle</h3>
+            
+            <h4>Supervision & traitement d'alertes</h4>
+            <ul class="competence-list columns-layout">
+                <li><strong>Suite ELK</strong> : Elasticsearch, Logstash, Kibana</li>
+                <li><strong>Splunk</strong></li>
+                <li><strong>Varonis</strong> : Supervision des droits et accès fichiers</li>
+                <li><strong>Cyberwatch</strong> : Gestion des vulnérabilités</li>
+                <li><strong>Logs bruts</strong> : Analyse manuelle de logs système (syslog, fail2ban, access, error, etc.)</li>
+            </ul>
+
+            <h4>Analyse forensique & réponse à incident</h4>
+            <ul class="competence-list columns-layout">
+                <li><strong>Wireshark</strong> : Analyse de trafic réseau</li>
+                <li><strong>Autopsy</strong> : Investigation forensique numérique</li>
+                <li><strong>Sysinternals Suite</strong> : Outils d'analyse système Windows</li>
+            </ul>
+
+            <h4>Gestion des accès</h4>
+            <ul class="competence-list grid-layout">
+                <li><strong>IAM</strong> : Identity and Access Management</li>
+                <li><strong>SSO</strong> : Authentification unique</li>
+                <li><strong>MFA</strong> : Authentification multifacteur</li>
+                <li><strong>PIM</strong> : Gestion des identités à privilèges</li>
+                <li><strong>RBAC</strong> : Contrôle d'accès basé sur les rôles</li>
+                <li><strong>ABAC</strong> : Contrôle d'accès basé sur les attributs</li>
+            </ul>
+            
+            <ul class="competence-list">
+                <li><strong>Principe du moindre privilège</strong> : Restriction des droits d'accès au strict nécessaire</li>
+            </ul>
+        </div>
+
+        <!-- Administration système & réseau -->
+        <div class="competence-category" data-skills="chef-projet,rssi" data-priority-chef-projet="3" data-priority-consultant-grc="5" data-priority-rssi="4" data-priority-all="4">
+            <h3>Administration système & réseau</h3>
+            
+            <h4>Systèmes d'exploitation</h4>
+            <ul class="competence-list inline-layout">
+                <li><strong>Ubuntu</strong></li>
+                <li><strong>Debian</strong></li>
+                <li><strong>Linux Mint</strong></li>
+                <li><strong>Arch Linux</strong></li>
+                <li><strong>CentOS</strong></li>
+                <li><strong>RHEL</strong></li>
+                <li><strong>Fedora</strong></li>
+                <li><strong>Windows 10</strong></li>
+                <li><strong>Windows 11</strong></li>
+                <li><strong>Windows Server</strong></li>
+                <li><strong>DiskStation Manager</strong></li>
+            </ul>
+
+            <h4>Installation, configuration, durcissement</h4>
+            <ul class="competence-list grid-layout">
+                <li><strong>Apache</strong></li>
+                <li><strong>Nginx</strong></li>
+                <li><strong>MariaDB</strong></li>
+                <li><strong>MySQL</strong></li>
+                <li><strong>MongoDB</strong></li>
+                <li><strong>SSL/TLS</strong></li>
+                <li><strong>DNS</strong></li>
+                <li><strong>DHCP</strong></li>
+                <li><strong>OpenLDAP</strong></li>
+                <li><strong>Postfix</strong></li>
+                <li><strong>AD</strong> : Active Directory</li>
+                <li><strong>GPO</strong> : Group Policy Objects</li>
+                <li><strong>FSMO</strong></li>
+            </ul>
+
+            <h4>Virtualisation/Containerisation</h4>
+            <ul class="competence-list inline-layout">
+                <li><strong>Proxmox</strong></li>
+                <li><strong>VMware</strong></li>
+                <li><strong>Hyper-V</strong></li>
+                <li><strong>KVM</strong></li>
+                <li><strong>VirtualBox</strong></li>
+                <li><strong>Docker</strong></li>
+                <li><strong>LXC/LXD</strong></li>
+            </ul>
+        </div>
+
+        <!-- Programmation -->
+        <div class="competence-category" data-skills="chef-projet" data-priority-chef-projet="4" data-priority-consultant-grc="6" data-priority-rssi="5" data-priority-all="5">
+            <h3>Programmation</h3>
+            
+            <h4>Programmation procédurale et orientée objet</h4>
+            <ul class="competence-list inline-layout">
+                <li><strong>C#</strong></li>
+                <li><strong>Java</strong></li>
+            </ul>
+
+            <h4>Programmation événementielle</h4>
+            <ul class="competence-list inline-layout">
+                <li><strong>Java</strong> (Android)</li>
+                <li><strong>Python</strong> (PyQt5)</li>
+            </ul>
+
+            <h4>Programmation web</h4>
+            <ul class="competence-list inline-layout">
+                <li><strong>PHP</strong></li>
+                <li><strong>JavaScript</strong></li>
+                <li><strong>jQuery</strong></li>
+                <li><strong>HTML</strong></li>
+                <li><strong>CSS</strong></li>
+            </ul>
+
+            <h4>Vision par ordinateur</h4>
+            <ul class="competence-list columns-layout">
+                <li><strong>OpenCV</strong> : Traitement d'images</li>
+                <li><strong>TensorFlow</strong> : Machine learning</li>
+                <li><strong>YOLO</strong> : Détection d'objets en temps réel</li>
+            </ul>
+
+            <h4>Scripting</h4>
+            <ul class="competence-list inline-layout">
+                <li><strong>Bash</strong></li>
+                <li><strong>Python</strong></li>
+                <li><strong>PowerShell</strong></li>
+            </ul>
+        </div>
+
+        <!-- Intelligence artificielle générative -->
+        <div class="competence-category" data-skills="chef-projet,consultant-grc,rssi" data-priority-chef-projet="5" data-priority-consultant-grc="2" data-priority-rssi="6" data-priority-all="6">
+            <h3>Intelligence artificielle générative</h3>
+            <ul class="competence-list inline-layout">
+                <li><strong>ChatGPT</strong></li>
+                <li><strong>GitHub Copilot</strong></li>
+                <li><strong>Claude</strong></li>
+                <li><strong>Gemini</strong></li>
+                <li><strong>Perplexity</strong></li>
+            </ul>
+        </div>
+    </div>
+</article>
+
+        <!-- 4. Qualités professionnelles -->
+        <article class="qualites section-collapsible" id="qualites">
+            <div class="content-title">
+                <h1 class="section-header">
+                    <i class="fas fa-user-check"></i> Savoir-être
+                    <i class="fas fa-chevron-up collapse-icon"></i>
+                </h1>
+            </div>
+            <div class="content-content section-content">
+                <div class="qualites-grid">
+                    <div class="qualite-item">
+                        <div class="qualite-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h4>Force de proposition</h4>
+                        <p>Proactif dans les projets : je valorise les réussites, signale les freins et propose des pistes d’amélioration à chaque étape.</p>
+                    </div>
+                    
+                    <div class="qualite-item">
+                        <div class="qualite-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <h4>Rigueur & Sérieux</h4>
+                        <p>Méthodique et sérieux, je respecte rigoureusement les procédures, assure une documentation complète pour garantir la continuité et la reprise du travail, tout en veillant au respect des délais et à la qualité constante des résultats.</p>
+                    </div>
+                                        
+                    <div class="qualite-item">
+                        <div class="qualite-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h4>Curiosité intellectuelle</h4>
+                        <p>Ma curiosité intellectuelle me pousse à apprendre en continu, ce qui me permet de m’adapter rapidement à de nouveaux environnements, d’absorber de nouveaux sujets et de rester agile face au changement.</p>
+                    </div>
+                    
+                    <div class="qualite-item">
+                        <div class="qualite-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h4>Relationnel</h4>
+                        <p>À l’aise dans le travail d’équipe comme dans les échanges transverses, je m’adapte facilement à des profils variés, crée des liens de confiance et favorise une collaboration efficace et positive.</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- 5. Apprentissage Continu -->
+        <article class="certifications section-collapsible" id="apprentissage">
+            <div class="content-title">
+                <h1 class="section-header">
+                    <i class="fas fa-graduation-cap"></i> Formation continue
+                    <i class="fas fa-chevron-up collapse-icon"></i>
+                </h1>
+            </div>
+            <div class="content-content section-content">
+                <div class="certification-item">
+                    <div class="certification-titre">Lead Implementer ISO 27001</div>
+                    <div class="certification-organisme">Oo2, certification par PECB</div>
+                    <div class="certification-date">Prévu du 20 au 25 juillet 2025</div>
+                    <div class="certification-description">Certification pour l'implémentation des systèmes de management de la sécurité de l'information</div>
+                </div>
+
+                <div class="certification-item">
+                    <div class="certification-titre">Certification DELE B2 Espagnol</div>
+                    <div class="certification-organisme">Instituto Cervantes</div>
+                    <div class="certification-date">2025</div>
+                    <div class="certification-description">Diplôme d'Espagnol comme Langue Étrangère niveau B2</div>
+                </div>
+
+                <div class="certification-item">
+                    <div class="certification-titre">Formation Anglais professionnel</div>
+                    <div class="certification-organisme">Centre de formation</div>
+                    <div class="certification-date">Octobre - Novembre 2024</div>
+                    <div class="certification-description">Formation en anglais (niveau B2)</div>
+                </div>
+            </div>
+        </article>
+
+        <!-- 6. Parcours étudiant -->
+        <article class="formations section-collapsible" id="parcours">
+            <div class="content-title">
+                <h1 class="section-header">
+                    <i class="fas fa-university"></i> Études
+                    <i class="fas fa-chevron-up collapse-icon"></i>
+                </h1>
+            </div>
+            <div class="content-content section-content">
+                <div class="formations-item">
+                    <p class="formations-annees"><strong>2022</strong></p>
+                    <div class="formations-details">
+                        <p class="formations-diplome">Master Management des Systèmes d'Information et de Connaissance - sous parcours Cybersécurité</p>
+                        <p class="formations-lieux">Université Panthéon Sorbonne</p>
+                    </div>
+                </div>
+
+                <div class="formations-item">
+                    <p class="formations-annees"><strong>2021</strong></p>
+                    <div class="formations-details">
+                        <p class="formations-diplome">Master Cybersécurité</p>
+                        <p class="formations-lieux">Université Paris Cité</p>
+                    </div>
+                </div>
+
+                <div class="formations-item">
+                    <p class="formations-annees"><strong>2019</strong></p>
+                    <div class="formations-details">
+                        <p class="formations-diplome">Licence Informatique</p>
+                        <p class="formations-lieux">Université de La Rochelle</p>
+                    </div>
+                </div>
+
+                <div class="formations-item">
+                    <p class="formations-annees"><strong>2018</strong></p>
+                    <div class="formations-details">
+                        <p class="formations-diplome">DUT Informatique</p>
+                        <p class="formations-lieux">Institut Universitaire de Technologie d'Amiens</p>
+                    </div>
+                </div>
+
+                <div class="formations-item">
+                    <p class="formations-annees"><strong>2016</strong></p>
+                    <div class="formations-details">
+                        <p class="formations-diplome">Baccalauréat série Scientifique profil Sciences de l'Ingénieur, spécialité Physique Chimie</p>
+                        <p class="formations-lieux">Lycée</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- 7. Langues -->
+        <article class="langues section-collapsible" id="langues">
+            <div class="content-title">
+                <h1 class="section-header">
+                    <i class="fas fa-globe"></i> Langues
+                    <i class="fas fa-chevron-up collapse-icon"></i>
+                </h1>
+            </div>
+            <div class="content-content section-content">
+                <div class="langues-grid">
+                    <div class="langue-item">
+                        <div class="langue-flag">🇫🇷</div>
+                        <h4>Français</h4>
+                        <p class="langue-niveau">Langue natale</p>
+                    </div>
+                    <div class="langue-item">
+                        <div class="langue-flag">🇬🇧</div>
+                        <h4>Anglais</h4>
+                        <p class="langue-niveau">Niveau B2</p>
+                        <p class="langue-detail">Formation professionnelle</p>
+                    </div>
+                    <div class="langue-item">
+                        <div class="langue-flag">🇪🇸</div>
+                        <h4>Espagnol</h4>
+                        <p class="langue-niveau">Niveau B2</p>
+                        <p class="langue-detail">Certification DELE</p>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- 8. Centres d'intérêt -->
+        <article class="interets section-collapsible" id="interets">
+            <div class="content-title">
+                <h1 class="section-header">
+                    <i class="fas fa-heart"></i> Centres d'intérêt
+                    <i class="fas fa-chevron-up collapse-icon"></i>
+                </h1>
+            </div>
+            <div class="content-content section-content">
+                <div class="interets-grid">
+                    <div class="interet-item">
+                        <div class="interet-icon">
+                        <img src="img/icons/salsa.png" alt="Danse" style="width: 2em; height: 2em;">
+                        </div>
+                        <h4>Danse</h4>
+                        <p>Salsa, Bachata</p>
+                    </div>
+                    
+                    <div class="interet-item">
+                        <div class="interet-icon">
+                            <i class="fas fa-spray-can"></i>
+                        </div>
+                        <h4>Parfumerie</h4>
+                        <p>Parfumerie de niche : Serge Lutens,  Pierre Guillaume, Byredo & plus encore.</p>
+                    </div>
+                    
+                    <div class="interet-item">
+                        <div class="interet-icon">
+                            <i class="fas fa-person-running"></i>
+                        </div>
+                        <h4>Sports</h4>
+                        <p>Badminton, cyclisme, tir sportif, natation</p>
+                    </div>
+                    
+                    <div class="interet-item">
+                        <div class="interet-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4>Lecture</h4>
+                        <p>Presse (actualités internationales), Essais</p>
+                    </div>
+                    
+                </div>
+            </div>
+        </article>
+    </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
 </body>
 
 </html>
