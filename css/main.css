@@ -375,6 +375,22 @@ Certifications
     color: #555;
 }
 
+.certification-description a {
+    display: inline-block;
+    margin-top: 8px;
+    color: white;
+    background-color: #A31621;
+    padding: 6px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.certification-description a:hover {
+    background-color: #7f1018;
+}
+
 
 
 /* 
