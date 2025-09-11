@@ -83,14 +83,17 @@ Banner
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
     background-color: #2e4057;
     margin: 0;
     margin-top: 50px;
     border-top: none;
+    position: relative; /* permet au badge d’être en absolu */
 }
 
 .banner .banner-content{
     margin-left: 15px;
+    text-align: left;
 }
 
 .banner .banner-image{
@@ -109,15 +112,32 @@ Banner
 }
 
 .banner .banner-content h1{
+    margin: 0.3em 0; /* réduit l’espace vertical */
     font-family: 'Helvetica', sans-serif;
     color: #eef2f6;
 }
 
 .banner .banner-content h2, .banner .banner-content h3{
+    margin: 0.3em 0; /* réduit l’espace vertical */
     font-family: 'Helvetica', sans-serif;
     color : #eef2f6;
 }
 
+.banner .banner-content h3 {
+    margin: 0.3em 0; /* réduit l’espace vertical */
+    font-family: 'Helvetica', sans-serif;
+    color: #eef2f6;
+}
+
+
+/* Badge PECB ISO 27001 */
+.banner .badge {
+  width: clamp(2rem, 25vw, 8rem);
+  height: auto;
+  object-fit: contain;
+  opacity: 0.95;
+  margin-left: 1em;
+}
 /*
 Contenu - LARGEURS ADAPTATIVES
 */
